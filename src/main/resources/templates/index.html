@@ -53,7 +53,15 @@
                     <a
                         class="nav-link"
                         href="/college-cost">
-                        College Cost Calculator
+                        College Cost
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="/monthly-budget">
+                        Monthly Budget
                     </a>
                 </li>
 
@@ -79,21 +87,28 @@
 
             <p class="lead mt-3 text-secondary">
                 CampusFin helps college-bound students compare college costs,
-                understand scholarships, create budgets, estimate funding gaps,
-                and prepare for responsible financial decisions.
+                plan monthly budgets, understand scholarships, estimate funding
+                gaps, and prepare for responsible financial decisions.
             </p>
 
             <div class="mt-4">
 
                 <a
-                    class="btn btn-primary btn-lg me-2"
+                    class="btn btn-primary btn-lg me-2 mb-2"
                     href="/college-cost">
 
                     Compare College Costs
                 </a>
 
                 <a
-                    class="btn btn-outline-secondary btn-lg"
+                    class="btn btn-outline-primary btn-lg me-2 mb-2"
+                    href="/monthly-budget">
+
+                    Plan Monthly Budget
+                </a>
+
+                <a
+                    class="btn btn-outline-secondary btn-lg mb-2"
                     href="#features">
 
                     Explore Features
@@ -132,7 +147,11 @@
                         </li>
 
                         <li class="list-group-item px-0">
-                            Support responsible college planning
+                            Analyze monthly income and expenses
+                        </li>
+
+                        <li class="list-group-item px-0">
+                            Estimate savings and emergency-fund coverage
                         </li>
 
                     </ul>
@@ -154,8 +173,8 @@
             </h2>
 
             <p class="text-secondary">
-                Start with college-cost planning and expand later into budgeting,
-                financial readiness, and explainable AI.
+                Start with college-cost planning and monthly budgeting, then
+                expand into financial readiness and explainable AI.
             </p>
 
         </div>
@@ -201,16 +220,17 @@
                         </h3>
 
                         <p class="text-secondary">
-                            Plan monthly income and expenses, calculate savings,
-                            and identify possible financial stress.
+                            Plan monthly income and expenses, estimate savings,
+                            identify your largest expense category, and check
+                            emergency-fund coverage.
                         </p>
 
-                        <button
-                            class="btn btn-sm btn-outline-secondary"
-                            disabled>
+                        <a
+                            href="/monthly-budget"
+                            class="btn btn-sm btn-outline-primary">
 
-                            Coming Soon
-                        </button>
+                            Open Budget Planner
+                        </a>
 
                     </div>
                 </div>
@@ -229,7 +249,7 @@
 
                         <p class="text-secondary">
                             Evaluate knowledge of budgeting, college costs,
-                            debt, credit, and emergency planning.
+                            debt, credit, savings, and emergency planning.
                         </p>
 
                         <button
@@ -249,27 +269,23 @@
 
     <section class="py-5">
 
-        <div class="card border-0 shadow-sm">
+        <div class="row g-4">
 
-            <div class="card-body p-4 p-md-5">
+            <div class="col-md-6">
 
-                <div class="row align-items-center">
+                <div class="card border-0 shadow-sm h-100">
 
-                    <div class="col-md-8">
+                    <div class="card-body p-4">
 
-                        <h2 class="h3 fw-bold">
-                            Start with the College Cost Calculator
+                        <h2 class="h4 fw-bold">
+                            Compare College Costs
                         </h2>
 
-                        <p class="text-secondary mb-md-0">
-                            Enter a college's tuition, scholarship, housing,
-                            living costs, family contribution, and student income
-                            to estimate the annual and four-year funding gap.
+                        <p class="text-secondary">
+                            Enter tuition, scholarships, housing, food, books,
+                            transportation, family contribution, and student
+                            income to calculate annual and four-year costs.
                         </p>
-
-                    </div>
-
-                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
 
                         <a
                             href="/college-cost"
@@ -279,10 +295,38 @@
                         </a>
 
                     </div>
-
                 </div>
 
             </div>
+
+            <div class="col-md-6">
+
+                <div class="card border-0 shadow-sm h-100">
+
+                    <div class="card-body p-4">
+
+                        <h2 class="h4 fw-bold">
+                            Build a Monthly Budget
+                        </h2>
+
+                        <p class="text-secondary">
+                            Enter income, living expenses, discretionary
+                            spending, and emergency savings to calculate your
+                            monthly balance and savings rate.
+                        </p>
+
+                        <a
+                            href="/monthly-budget"
+                            class="btn btn-primary">
+
+                            Open Budget Planner
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
     </section>
@@ -299,7 +343,7 @@
 
         <p class="mb-0 text-muted small">
             CampusFin provides educational estimates and does not provide
-            financial, legal, investment, or lending advice.
+            financial, legal, investment, lending, or tax advice.
         </p>
 
     </div>
