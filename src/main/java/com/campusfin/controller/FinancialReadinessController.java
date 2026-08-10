@@ -45,34 +45,45 @@ public class FinancialReadinessController {
                 financialReadinessInput
         );
 
+        double percentageScore =
+                financialReadinessService.calculatePercentageScore(
+                        financialReadinessInput
+                );
+
+        String readinessLevel =
+                financialReadinessService.getReadinessLevel(
+                        financialReadinessInput
+                );
+
         model.addAttribute(
                 "percentageScore",
-                financialReadinessService.calculatePercentageScore(
-                        financialReadinessInput)
+                percentageScore
         );
 
         model.addAttribute(
                 "readinessLevel",
-                financialReadinessService.getReadinessLevel(
-                        financialReadinessInput)
+                readinessLevel
         );
 
         model.addAttribute(
                 "strongestArea",
                 financialReadinessService.getStrongestArea(
-                        financialReadinessInput)
+                        financialReadinessInput
+                )
         );
 
         model.addAttribute(
                 "weakestArea",
                 financialReadinessService.getWeakestArea(
-                        financialReadinessInput)
+                        financialReadinessInput
+                )
         );
 
         model.addAttribute(
                 "recommendation",
                 financialReadinessService.getRecommendation(
-                        financialReadinessInput)
+                        financialReadinessInput
+                )
         );
 
         try {
@@ -82,20 +93,51 @@ public class FinancialReadinessController {
                             financialReadinessInput
                     );
 
+            String aiPrediction =
+                    String.valueOf(
+                            aiResult.get("prediction")
+                    );
+
+            Object aiConfidence =
+                    aiResult.get("confidence");
+
             model.addAttribute(
                     "aiPrediction",
-                    aiResult.get("prediction")
+                    aiPrediction
             );
 
             model.addAttribute(
                     "aiConfidence",
-                    aiResult.get("confidence")
+                    aiConfidence
             );
 
             model.addAttribute(
                     "aiAvailable",
                     true
             );
+
+            boolean modelsAgree =
+                    readinessLevel.equalsIgnoreCase(aiPrediction);
+
+            model.addAttribute(
+                    "modelsAgree",
+                    modelsAgree
+            );
+
+            if (modelsAgree) {
+
+                model.addAttribute(
+                        "comparisonMessage",
+                        "Both models reached the same readiness level. This provides consistent results across the rule-based and machine-learning approaches."
+                );
+
+            } else {
+
+                model.addAttribute(
+                        "comparisonMessage",
+                        "The two models produced different readiness levels. This difference can help identify where the rule-based and machine-learning approaches evaluate the same responses differently."
+                );
+            }
 
         } catch (Exception exception) {
 

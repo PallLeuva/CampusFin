@@ -348,7 +348,7 @@
 
 
             <div
-                class="card shadow-sm border-0"
+                class="card shadow-sm border-0 mb-4"
                 th:if="${percentageScore != null}">
 
                 <div class="card-body p-4">
@@ -400,6 +400,81 @@
                         </div>
 
                     </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Model Comparison -->
+
+            <div
+                class="card shadow-sm border-0"
+                th:if="${percentageScore != null and aiAvailable}">
+
+                <div class="card-body p-4">
+
+                    <h2 class="h4 mb-3">
+                        Model Comparison
+                    </h2>
+
+                    <p class="text-muted small">
+                        Comparison between the transparent rule-based model
+                        and the experimental machine-learning model.
+                    </p>
+
+                    <p>
+                        <strong>Rule-based result:</strong>
+
+                        <span th:text="${readinessLevel}">
+                            Rule-based level
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>AI / ML result:</strong>
+
+                        <span th:text="${aiPrediction}">
+                            AI prediction
+                        </span>
+                    </p>
+
+                    <div
+                        class="alert alert-success"
+                        th:if="${modelsAgree}">
+
+                        <strong>Status: Models Agree</strong>
+
+                        <div class="mt-2">
+                            <span th:text="${comparisonMessage}">
+                                Comparison message
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="alert alert-warning"
+                        th:if="${modelsAgree == false}">
+
+                        <strong>Status: Models Disagree</strong>
+
+                        <div class="mt-2">
+                            <span th:text="${comparisonMessage}">
+                                Comparison message
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <p class="text-muted small mb-0">
+                        Agreement between the two models does not mean the
+                        assessment has been scientifically validated.
+                        The machine-learning model currently uses synthetic
+                        training data.
+                    </p>
 
                 </div>
 

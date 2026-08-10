@@ -1,6 +1,7 @@
 package com.campusfin.service;
 
 import com.campusfin.model.FinancialReadinessInput;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -13,6 +14,7 @@ public class AiReadinessService {
     private final RestClient restClient;
 
     public AiReadinessService() {
+
         this.restClient = RestClient.builder()
                 .baseUrl("http://localhost:5000")
                 .build();
@@ -63,11 +65,22 @@ public class AiReadinessService {
                 input.getConfidenceLevel()
         );
 
-        return restClient
+        Map<String, Object> response = restClient
                 .post()
                 .uri("/predict")
                 .body(requestBody)
                 .retrieve()
-                .body(Map.class);
+                .body(
+                        new ParameterizedTypeReference<Map<String, Object>>() {
+                        }
+                );
+
+        if (response == null) {
+            throw new IllegalStateException(
+                    "AI service returned an empty response."
+            );
+        }
+
+        return response;
     }
 }
