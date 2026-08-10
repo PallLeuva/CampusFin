@@ -1,21 +1,27 @@
 package com.campusfin.controller;
 
 import com.campusfin.model.FinancialReadinessInput;
+import com.campusfin.service.AiReadinessService;
 import com.campusfin.service.FinancialReadinessService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Map;
+
 @Controller
 public class FinancialReadinessController {
 
     private final FinancialReadinessService financialReadinessService;
+    private final AiReadinessService aiReadinessService;
 
     public FinancialReadinessController(
-            FinancialReadinessService financialReadinessService) {
+            FinancialReadinessService financialReadinessService,
+            AiReadinessService aiReadinessService) {
 
         this.financialReadinessService = financialReadinessService;
+        this.aiReadinessService = aiReadinessService;
     }
 
     @GetMapping("/financial-readiness")
@@ -68,6 +74,41 @@ public class FinancialReadinessController {
                 financialReadinessService.getRecommendation(
                         financialReadinessInput)
         );
+
+        try {
+
+            Map<String, Object> aiResult =
+                    aiReadinessService.getPrediction(
+                            financialReadinessInput
+                    );
+
+            model.addAttribute(
+                    "aiPrediction",
+                    aiResult.get("prediction")
+            );
+
+            model.addAttribute(
+                    "aiConfidence",
+                    aiResult.get("confidence")
+            );
+
+            model.addAttribute(
+                    "aiAvailable",
+                    true
+            );
+
+        } catch (Exception exception) {
+
+            model.addAttribute(
+                    "aiAvailable",
+                    false
+            );
+
+            model.addAttribute(
+                    "aiError",
+                    "The AI prediction service is currently unavailable."
+            );
+        }
 
         return "financial-readiness";
     }
