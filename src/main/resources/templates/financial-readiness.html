@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Financial Readiness Assessment | CampusFin</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="/">
+            CampusFin
+        </a>
+
+        <div class="navbar-nav ms-auto">
+
+            <a class="nav-link" href="/">
+                Home
+            </a>
+
+            <a class="nav-link" href="/college-cost">
+                College Cost
+            </a>
+
+            <a class="nav-link" href="/monthly-budget">
+                Monthly Budget
+            </a>
+
+            <a class="nav-link active" href="/financial-readiness">
+                Financial Readiness
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<main class="container py-5">
+
+    <div class="mb-4">
+
+        <h1 class="fw-bold">
+            Financial Readiness Assessment
+        </h1>
+
+        <p class="text-secondary">
+            Rate yourself from 1 to 5 in each area.
+            A score of 1 means very limited knowledge or confidence,
+            while a score of 5 means strong knowledge or confidence.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <div class="col-lg-7">
+
+            <form
+                method="post"
+                action="/financial-readiness"
+                th:object="${financialReadinessInput}"
+                class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <!-- Question 1 -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            1. How well do you understand how to create
+                            and follow a monthly budget?
+                        </label>
+
+                        <select
+                            class="form-select"
+                            th:field="*{budgetingKnowledge}"
+                            required>
+
+                            <option value="1">1 - Very limited</option>
+                            <option value="2">2 - Limited</option>
+                            <option value="3">3 - Moderate</option>
+                            <option value="4">4 - Good</option>
+                            <option value="5">5 - Strong</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Question 2 -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            2. How well do you understand the total
+                            cost of attending college?
+                        </label>
+
+                        <select
+                            class="form-select"
+                            th:field="*{collegeCostKnowledge}"
+                            required>
+
+                            <option value="1">1 - Very limited</option>
+                            <option value="2">2 - Limited</option>
+                            <option value="3">3 - Moderate</option>
+                            <option value="4">4 - Good</option>
+                            <option value="5">5 - Strong</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Question 3 -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            3. How well do you understand scholarships
+                            and financial-aid options?
+                        </label>
+
+                        <select
+                            class="form-select"
+                            th:field="*{scholarshipKnowledge}"
+                            required>
+
+                            <option value="1">1 - Very limited</option>
+                            <option value="2">2 - Limited</option>
+                            <option value="3">3 - Moderate</option>
+                            <option value="4">4 - Good</option>
+                            <option value="5">5 - Strong</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Question 4 -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            4. How well do you understand credit scores,
+                            credit cards, and responsible credit use?
+                        </label>
+
+                        <select
+                            class="form-select"
+                            th:field="*{creditKnowledge}"
+                            required>
+
+                            <option value="1">1 - Very limited</option>
+                            <option value="2">2 - Limited</option>
+                            <option value="3">3 - Moderate</option>
+                            <option value="4">4 - Good</option>
+                            <option value="5">5 - Strong</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Question 5 -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            5. How well do you understand student loans,
+                            interest, and debt repayment?
+                        </label>
+
+                        <select
+                            class="form-select"
+                            th:field="*{debtKnowledge}"
+                            required>
+
+                            <option value="1">1 - Very limited</option>
+                            <option value="2">2 - Limited</option>
+                            <option value="3">3 - Moderate</option>
+                            <option value="4">4 - Good</option>
+                            <option value="5">5 - Strong</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Question 6 -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            6. How well do you understand the purpose
+                            of an emergency fund?
+                        </label>
+
+                        <select
+                            class="form-select"
+                            th:field="*{emergencyFundKnowledge}"
+                            required>
+
+                            <option value="1">1 - Very limited</option>
+                            <option value="2">2 - Limited</option>
+                            <option value="3">3 - Moderate</option>
+                            <option value="4">4 - Good</option>
+                            <option value="5">5 - Strong</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Question 7 -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            7. How consistently do you save part
+                            of your available money?
+                        </label>
+
+                        <select
+                            class="form-select"
+                            th:field="*{savingsHabit}"
+                            required>
+
+                            <option value="1">1 - Never</option>
+                            <option value="2">2 - Rarely</option>
+                            <option value="3">3 - Sometimes</option>
+                            <option value="4">4 - Often</option>
+                            <option value="5">5 - Consistently</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Question 8 -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            8. How confident are you in making
+                            financial decisions for college?
+                        </label>
+
+                        <select
+                            class="form-select"
+                            th:field="*{confidenceLevel}"
+                            required>
+
+                            <option value="1">1 - Not confident</option>
+                            <option value="2">2 - Slightly confident</option>
+                            <option value="3">3 - Moderately confident</option>
+                            <option value="4">4 - Confident</option>
+                            <option value="5">5 - Very confident</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        Calculate Readiness
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- Results -->
+
+        <div class="col-lg-5">
+
+            <div
+                class="card shadow-sm border-0"
+                th:if="${totalScore != null}">
+
+                <div class="card-body p-4">
+
+                    <h2 class="h4 mb-4">
+                        Your Readiness Results
+                    </h2>
+
+                    <p>
+
+                        <strong>Total score:</strong>
+
+                        <span th:text="${totalScore}">
+                            0
+                        </span>
+
+                        / 40
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>Readiness score:</strong>
+
+                        <span
+                            th:text="${#numbers.formatDecimal(percentageScore, 1, 1)}">
+
+                            0.0
+
+                        </span>%
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>Readiness level:</strong>
+
+                        <span th:text="${readinessLevel}">
+                            Level
+                        </span>
+
+                    </p>
+
+
+                    <hr>
+
+
+                    <h3 class="h5">
+                        Recommendation
+                    </h3>
+
+
+                    <div class="alert alert-info mt-3">
+
+                        <span th:text="${recommendation}">
+                            Recommendation
+                        </span>
+
+                    </div>
+
+
+                    <p class="text-muted small mb-0">
+                        This assessment is an educational self-assessment
+                        and is not a professional financial evaluation.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer class="border-top bg-white py-4 mt-5">
+
+    <div class="container">
+
+        <p class="mb-1 fw-semibold">
+            CampusFin
+        </p>
+
+        <p class="mb-0 text-muted small">
+            CampusFin provides educational estimates and self-assessments
+            and does not provide financial, legal, investment,
+            lending, or tax advice.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
+</html>
