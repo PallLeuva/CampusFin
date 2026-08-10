@@ -40,12 +40,6 @@ public class FinancialReadinessController {
         );
 
         model.addAttribute(
-                "totalScore",
-                financialReadinessService.calculateTotalScore(
-                        financialReadinessInput)
-        );
-
-        model.addAttribute(
                 "percentageScore",
                 financialReadinessService.calculatePercentageScore(
                         financialReadinessInput)
@@ -54,6 +48,18 @@ public class FinancialReadinessController {
         model.addAttribute(
                 "readinessLevel",
                 financialReadinessService.getReadinessLevel(
+                        financialReadinessInput)
+        );
+
+        model.addAttribute(
+                "strongestArea",
+                financialReadinessService.getStrongestArea(
+                        financialReadinessInput)
+        );
+
+        model.addAttribute(
+                "weakestArea",
+                financialReadinessService.getWeakestArea(
                         financialReadinessInput)
         );
 
