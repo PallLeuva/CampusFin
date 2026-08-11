@@ -1,85 +1,133 @@
 package com.campusfin.controller;
 
 import com.campusfin.model.MonthlyBudgetInput;
+import com.campusfin.model.StudentFinancialProfile;
 import com.campusfin.service.MonthlyBudgetService;
+import com.campusfin.service.StudentFinancialProfileService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MonthlyBudgetController {
 
     private final MonthlyBudgetService monthlyBudgetService;
+    private final StudentFinancialProfileService studentFinancialProfileService;
 
     public MonthlyBudgetController(
-            MonthlyBudgetService monthlyBudgetService) {
+            MonthlyBudgetService monthlyBudgetService,
+            StudentFinancialProfileService studentFinancialProfileService) {
 
         this.monthlyBudgetService = monthlyBudgetService;
+        this.studentFinancialProfileService = studentFinancialProfileService;
     }
 
     @GetMapping("/monthly-budget")
-    public String showBudgetPlanner(Model model) {
+    public String showMonthlyBudgetForm(Model model) {
 
         model.addAttribute(
                 "monthlyBudgetInput",
-                new MonthlyBudgetInput()
-        );
+                new MonthlyBudgetInput());
 
         return "monthly-budget";
     }
 
     @PostMapping("/monthly-budget")
-    public String calculateBudget(
-            MonthlyBudgetInput monthlyBudgetInput,
+    public String calculateMonthlyBudget(
+            @ModelAttribute MonthlyBudgetInput monthlyBudgetInput,
+            HttpSession session,
             Model model) {
+
+        double totalExpenses =
+                monthlyBudgetService.calculateTotalExpenses(
+                        monthlyBudgetInput);
+
+        double monthlyBalance =
+                monthlyBudgetService.calculateMonthlyBalance(
+                        monthlyBudgetInput);
+
+        double savingsRate =
+                monthlyBudgetService.calculateSavingsRate(
+                        monthlyBudgetInput);
+
+        double emergencyFundCoverage =
+                monthlyBudgetService.calculateEmergencyCoverage(
+                        monthlyBudgetInput);
+
+        String largestExpenseCategory =
+                monthlyBudgetService.findLargestExpenseCategory(
+                        monthlyBudgetInput);
+
+        String budgetStatus =
+                monthlyBudgetService.generateBudgetStatus(
+                        monthlyBudgetInput);
+
+        String emergencyFundStatus =
+                monthlyBudgetService.generateEmergencyFundStatus(
+                        monthlyBudgetInput);
 
         model.addAttribute(
                 "monthlyBudgetInput",
-                monthlyBudgetInput
-        );
+                monthlyBudgetInput);
 
         model.addAttribute(
                 "totalExpenses",
-                monthlyBudgetService.calculateTotalExpenses(
-                        monthlyBudgetInput)
-        );
+                totalExpenses);
 
         model.addAttribute(
                 "monthlyBalance",
-                monthlyBudgetService.calculateMonthlyBalance(
-                        monthlyBudgetInput)
-        );
+                monthlyBalance);
 
         model.addAttribute(
                 "savingsRate",
-                monthlyBudgetService.calculateSavingsRate(
-                        monthlyBudgetInput)
-        );
+                savingsRate);
 
         model.addAttribute(
                 "emergencyCoverage",
-                monthlyBudgetService.calculateEmergencyCoverage(
-                        monthlyBudgetInput)
-        );
+                emergencyFundCoverage);
 
         model.addAttribute(
                 "largestExpenseCategory",
-                monthlyBudgetService.findLargestExpenseCategory(
-                        monthlyBudgetInput)
-        );
+                largestExpenseCategory);
 
         model.addAttribute(
                 "budgetStatus",
-                monthlyBudgetService.generateBudgetStatus(
-                        monthlyBudgetInput)
-        );
+                budgetStatus);
 
         model.addAttribute(
                 "emergencyFundStatus",
-                monthlyBudgetService.generateEmergencyFundStatus(
-                        monthlyBudgetInput)
-        );
+                emergencyFundStatus);
+
+        model.addAttribute(
+                "resultsAvailable",
+                true);
+
+        StudentFinancialProfile profile =
+                studentFinancialProfileService
+                        .getOrCreateProfile(session);
+
+        profile.setMonthlyIncome(
+                monthlyBudgetInput.getMonthlyIncome());
+
+        profile.setMonthlyExpenses(
+                totalExpenses);
+
+        profile.setMonthlyBalance(
+                monthlyBalance);
+
+        profile.setSavingsRate(
+                savingsRate);
+
+        profile.setEmergencyFundCoverage(
+                emergencyFundCoverage);
+
+        studentFinancialProfileService
+                .saveProfile(
+                        profile,
+                        session);
 
         return "monthly-budget";
     }

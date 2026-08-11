@@ -1,10 +1,14 @@
 package com.campusfin.controller;
 
 import com.campusfin.model.CollegeCostInput;
+import com.campusfin.model.StudentFinancialProfile;
 import com.campusfin.service.CollegeCostService;
+import com.campusfin.service.StudentFinancialProfileService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -12,42 +16,113 @@ public class CollegeCostController {
 
     private final CollegeCostService collegeCostService;
 
-    public CollegeCostController(CollegeCostService collegeCostService) {
-        this.collegeCostService = collegeCostService;
+    private final StudentFinancialProfileService
+            studentFinancialProfileService;
+
+    public CollegeCostController(
+            CollegeCostService collegeCostService,
+            StudentFinancialProfileService studentFinancialProfileService) {
+
+        this.collegeCostService =
+                collegeCostService;
+
+        this.studentFinancialProfileService =
+                studentFinancialProfileService;
     }
 
     @GetMapping("/college-cost")
-    public String showCalculator(Model model) {
-        model.addAttribute("collegeCostInput", new CollegeCostInput());
+    public String showCollegeCostForm(
+            Model model) {
+
+        model.addAttribute(
+                "collegeCostInput",
+                new CollegeCostInput());
+
         return "college-cost";
     }
 
     @PostMapping("/college-cost")
-    public String calculateCost(
-            CollegeCostInput collegeCostInput,
+    public String calculateCollegeCost(
+            @ModelAttribute CollegeCostInput collegeCostInput,
+            HttpSession session,
             Model model) {
 
-        model.addAttribute("collegeCostInput", collegeCostInput);
+        double annualCollegeCost =
+                collegeCostService
+                        .calculateAnnualTotal(
+                                collegeCostInput);
+
+        double annualFundingGap =
+                collegeCostService
+                        .calculateAnnualFundingGap(
+                                collegeCostInput);
+
+        double fourYearCollegeCost =
+                collegeCostService
+                        .calculateFourYearCost(
+                                collegeCostInput);
+
+        double fourYearFundingGap =
+                collegeCostService
+                        .calculateFourYearFundingGap(
+                                collegeCostInput);
+
+        double scholarshipCoverage =
+                collegeCostService
+                        .calculateScholarshipCoverage(
+                                collegeCostInput);
+
+        model.addAttribute(
+                "collegeCostInput",
+                collegeCostInput);
+
         model.addAttribute(
                 "annualTotal",
-                collegeCostService.calculateAnnualTotal(collegeCostInput)
-        );
+                annualCollegeCost);
+
         model.addAttribute(
                 "annualFundingGap",
-                collegeCostService.calculateAnnualFundingGap(collegeCostInput)
-        );
+                annualFundingGap);
+
         model.addAttribute(
                 "fourYearCost",
-                collegeCostService.calculateFourYearCost(collegeCostInput)
-        );
+                fourYearCollegeCost);
+
         model.addAttribute(
                 "fourYearFundingGap",
-                collegeCostService.calculateFourYearFundingGap(collegeCostInput)
-        );
+                fourYearFundingGap);
+
         model.addAttribute(
                 "scholarshipCoverage",
-                collegeCostService.calculateScholarshipCoverage(collegeCostInput)
-        );
+                scholarshipCoverage);
+
+        model.addAttribute(
+                "resultsAvailable",
+                true);
+
+        StudentFinancialProfile profile =
+                studentFinancialProfileService
+                        .getOrCreateProfile(session);
+
+        profile.setAnnualCollegeCost(
+                annualCollegeCost);
+
+        profile.setFourYearCollegeCost(
+                fourYearCollegeCost);
+
+        profile.setAnnualFundingGap(
+                annualFundingGap);
+
+        profile.setFourYearFundingGap(
+                fourYearFundingGap);
+
+        profile.setScholarshipCoverage(
+                scholarshipCoverage);
+
+        studentFinancialProfileService
+                .saveProfile(
+                        profile,
+                        session);
 
         return "college-cost";
     }

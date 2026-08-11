@@ -1,8 +1,13 @@
 package com.campusfin.controller;
 
 import com.campusfin.model.FinancialReadinessInput;
+import com.campusfin.model.StudentFinancialProfile;
 import com.campusfin.service.AiReadinessService;
 import com.campusfin.service.FinancialReadinessService;
+import com.campusfin.service.StudentFinancialProfileService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +21,16 @@ public class FinancialReadinessController {
 
     private final FinancialReadinessService financialReadinessService;
     private final AiReadinessService aiReadinessService;
+    private final StudentFinancialProfileService studentFinancialProfileService;
 
     public FinancialReadinessController(
             FinancialReadinessService financialReadinessService,
-            AiReadinessService aiReadinessService) {
+            AiReadinessService aiReadinessService,
+            StudentFinancialProfileService studentFinancialProfileService) {
 
         this.financialReadinessService = financialReadinessService;
         this.aiReadinessService = aiReadinessService;
+        this.studentFinancialProfileService = studentFinancialProfileService;
     }
 
     @GetMapping("/financial-readiness")
@@ -39,7 +47,8 @@ public class FinancialReadinessController {
     @PostMapping("/financial-readiness")
     public String calculateReadiness(
             FinancialReadinessInput financialReadinessInput,
-            Model model) {
+            Model model,
+            HttpSession session) {
 
         model.addAttribute(
                 "financialReadinessInput",
@@ -86,6 +95,66 @@ public class FinancialReadinessController {
                         financialReadinessInput
                 )
         );
+
+
+        // -------------------------------------------------
+        // Save Readiness Results into Persistent Profile
+        // -------------------------------------------------
+
+        StudentFinancialProfile profile =
+                studentFinancialProfileService
+                        .getOrCreateProfile(session);
+
+        profile.setReadinessScore(
+                percentageScore
+        );
+
+        profile.setReadinessLevel(
+                readinessLevel
+        );
+
+        profile.setBudgetingKnowledge(
+                financialReadinessInput.getBudgetingKnowledge()
+        );
+
+        profile.setCollegeCostKnowledge(
+                financialReadinessInput.getCollegeCostKnowledge()
+        );
+
+        profile.setScholarshipKnowledge(
+                financialReadinessInput.getScholarshipKnowledge()
+        );
+
+        profile.setCreditKnowledge(
+                financialReadinessInput.getCreditKnowledge()
+        );
+
+        profile.setDebtKnowledge(
+                financialReadinessInput.getDebtKnowledge()
+        );
+
+        profile.setEmergencyFundKnowledge(
+                financialReadinessInput.getEmergencyFundKnowledge()
+        );
+
+        profile.setSavingsHabit(
+                financialReadinessInput.getSavingsHabit()
+        );
+
+        profile.setConfidenceLevel(
+                financialReadinessInput.getConfidenceLevel()
+        );
+
+        studentFinancialProfileService
+                .saveProfile(
+                        profile,
+                        session
+                );
+
+
+        // -------------------------------------------------
+        // AI / ML Analysis
+        // -------------------------------------------------
 
         try {
 
@@ -154,8 +223,15 @@ public class FinancialReadinessController {
                     true
             );
 
+
+            // -------------------------------------------------
+            // Compare Rule-Based and ML Results
+            // -------------------------------------------------
+
             boolean modelsAgree =
-                    readinessLevel.equalsIgnoreCase(aiPrediction);
+                    readinessLevel.equalsIgnoreCase(
+                            aiPrediction
+                    );
 
             model.addAttribute(
                     "modelsAgree",
@@ -189,6 +265,7 @@ public class FinancialReadinessController {
                     "The AI prediction service is currently unavailable."
             );
         }
+
 
         return "financial-readiness";
     }
