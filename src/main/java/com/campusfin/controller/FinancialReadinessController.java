@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -101,6 +102,23 @@ public class FinancialReadinessController {
             Object aiConfidence =
                     aiResult.get("confidence");
 
+            @SuppressWarnings("unchecked")
+            List<String> aiStrengths =
+                    (List<String>) aiResult.get("strengths");
+
+            @SuppressWarnings("unchecked")
+            List<String> aiAreasToImprove =
+                    (List<String>) aiResult.get("areasToImprove");
+
+            @SuppressWarnings("unchecked")
+            List<String> aiRecommendations =
+                    (List<String>) aiResult.get("recommendations");
+
+            String aiSummary =
+                    String.valueOf(
+                            aiResult.get("summary")
+                    );
+
             model.addAttribute(
                     "aiPrediction",
                     aiPrediction
@@ -109,6 +127,26 @@ public class FinancialReadinessController {
             model.addAttribute(
                     "aiConfidence",
                     aiConfidence
+            );
+
+            model.addAttribute(
+                    "aiStrengths",
+                    aiStrengths
+            );
+
+            model.addAttribute(
+                    "aiAreasToImprove",
+                    aiAreasToImprove
+            );
+
+            model.addAttribute(
+                    "aiRecommendations",
+                    aiRecommendations
+            );
+
+            model.addAttribute(
+                    "aiSummary",
+                    aiSummary
             );
 
             model.addAttribute(
@@ -128,14 +166,14 @@ public class FinancialReadinessController {
 
                 model.addAttribute(
                         "comparisonMessage",
-                        "Both models reached the same readiness level. This provides consistent results across the rule-based and machine-learning approaches."
+                        "Both models reached the same readiness level. This provides a consistent result across the rule-based and machine-learning approaches."
                 );
 
             } else {
 
                 model.addAttribute(
                         "comparisonMessage",
-                        "The two models produced different readiness levels. This difference can help identify where the rule-based and machine-learning approaches evaluate the same responses differently."
+                        "The two models produced different readiness levels. This highlights where the rule-based and machine-learning approaches interpret the same responses differently."
                 );
             }
 

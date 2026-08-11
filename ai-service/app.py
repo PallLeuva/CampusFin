@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 @app.route("/health", methods=["GET"])
 def health():
+
     return jsonify({
         "status": "ok",
         "service": "CampusFin AI Service"
@@ -18,6 +19,11 @@ def health():
 def predict():
 
     data = request.get_json()
+
+    if data is None:
+        return jsonify({
+            "error": "Request body must contain JSON."
+        }), 400
 
     required_fields = [
         "budgeting",
@@ -31,7 +37,9 @@ def predict():
     ]
 
     for field in required_fields:
+
         if field not in data:
+
             return jsonify({
                 "error": f"Missing field: {field}"
             }), 400
@@ -50,9 +58,12 @@ def predict():
         ]
 
         for value in values:
+
             if value < 1 or value > 5:
+
                 return jsonify({
-                    "error": "All readiness values must be between 1 and 5."
+                    "error":
+                        "All readiness values must be between 1 and 5."
                 }), 400
 
         result = predict_readiness(
@@ -66,10 +77,7 @@ def predict():
             confidence=values[7]
         )
 
-        return jsonify({
-            "prediction": result["prediction"],
-            "confidence": result["confidence"]
-        })
+        return jsonify(result)
 
     except (ValueError, TypeError):
 
@@ -79,6 +87,7 @@ def predict():
 
 
 if __name__ == "__main__":
+
     app.run(
         host="127.0.0.1",
         port=5000,

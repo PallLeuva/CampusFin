@@ -55,20 +55,24 @@
 
         <p class="text-secondary">
             Rate yourself from 1 to 5 in each area.
-            CampusFin compares a transparent rule-based score with
-            an experimental machine-learning prediction.
+            CampusFin compares a transparent rule-based assessment
+            with an experimental machine-learning model.
         </p>
 
         <div class="alert alert-light border">
-            <strong>Rule-based model:</strong>
-            Uses predefined weights for budgeting, college-cost knowledge,
-            debt, savings, credit, and other readiness factors.
+            <strong>How it works:</strong>
+            The rule-based model uses predefined weights.
+            The AI / ML model analyzes the same responses and produces
+            a prediction, strengths, improvement areas, recommendations,
+            and a personalized summary.
         </div>
 
     </div>
 
 
     <div class="row g-4">
+
+        <!-- Assessment Form -->
 
         <div class="col-lg-7">
 
@@ -279,7 +283,12 @@
         </div>
 
 
+        <!-- Results -->
+
         <div class="col-lg-5">
+
+
+            <!-- Rule-Based Assessment -->
 
             <div
                 class="card shadow-sm border-0 mb-4"
@@ -347,6 +356,8 @@
             </div>
 
 
+            <!-- AI / ML Assessment -->
+
             <div
                 class="card shadow-sm border-0 mb-4"
                 th:if="${percentageScore != null}">
@@ -358,7 +369,7 @@
                     </h2>
 
                     <p class="text-muted small">
-                        Experimental machine-learning prediction
+                        Experimental machine-learning analysis
                     </p>
 
 
@@ -380,10 +391,94 @@
                             </span>%
                         </p>
 
-                        <div class="alert alert-secondary mt-3 mb-0">
-                            The ML model currently uses synthetic training data.
-                            Its output is experimental and should not be treated
-                            as a validated financial assessment.
+
+                        <hr>
+
+
+                        <h3 class="h5">
+                            AI Summary
+                        </h3>
+
+                        <div class="alert alert-primary mt-3">
+
+                            <span th:text="${aiSummary}">
+                                AI summary
+                            </span>
+
+                        </div>
+
+
+                        <h3 class="h5 mt-4">
+                            Your Strengths
+                        </h3>
+
+                        <ul class="list-group mb-4">
+
+                            <li
+                                class="list-group-item"
+                                th:each="strength : ${aiStrengths}"
+                                th:text="${strength}">
+
+                                Strength
+
+                            </li>
+
+                        </ul>
+
+
+                        <h3 class="h5">
+                            Areas to Improve
+                        </h3>
+
+                        <ul class="list-group mb-4">
+
+                            <li
+                                class="list-group-item"
+                                th:each="area : ${aiAreasToImprove}"
+                                th:text="${area}">
+
+                                Improvement area
+
+                            </li>
+
+                        </ul>
+
+
+                        <h3 class="h5">
+                            Personalized AI Recommendations
+                        </h3>
+
+                        <div class="list-group mb-4">
+
+                            <div
+                                class="list-group-item"
+                                th:each="item, status : ${aiRecommendations}">
+
+                                <strong
+                                    th:text="${status.count + '.'}">
+                                    1.
+                                </strong>
+
+                                <span th:text="${item}">
+                                    Recommendation
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="alert alert-secondary mb-0">
+
+                            <strong>Experimental AI Notice:</strong>
+
+                            <div class="mt-2">
+                                The machine-learning model currently uses
+                                synthetic training data. Its predictions and
+                                recommendations are experimental and should not
+                                be treated as validated financial advice.
+                            </div>
+
                         </div>
 
                     </div>
@@ -423,6 +518,7 @@
                         and the experimental machine-learning model.
                     </p>
 
+
                     <p>
                         <strong>Rule-based result:</strong>
 
@@ -430,6 +526,7 @@
                             Rule-based level
                         </span>
                     </p>
+
 
                     <p>
                         <strong>AI / ML result:</strong>
@@ -439,16 +536,21 @@
                         </span>
                     </p>
 
+
                     <div
                         class="alert alert-success"
                         th:if="${modelsAgree}">
 
-                        <strong>Status: Models Agree</strong>
+                        <strong>
+                            Status: Models Agree
+                        </strong>
 
                         <div class="mt-2">
+
                             <span th:text="${comparisonMessage}">
                                 Comparison message
                             </span>
+
                         </div>
 
                     </div>
@@ -458,22 +560,28 @@
                         class="alert alert-warning"
                         th:if="${modelsAgree == false}">
 
-                        <strong>Status: Models Disagree</strong>
+                        <strong>
+                            Status: Models Disagree
+                        </strong>
 
                         <div class="mt-2">
+
                             <span th:text="${comparisonMessage}">
                                 Comparison message
                             </span>
+
                         </div>
 
                     </div>
 
 
                     <p class="text-muted small mb-0">
-                        Agreement between the two models does not mean the
-                        assessment has been scientifically validated.
-                        The machine-learning model currently uses synthetic
-                        training data.
+
+                        Agreement between the models does not mean
+                        the assessment has been scientifically validated.
+                        Future CampusFin research can compare both approaches
+                        using real anonymized student data.
+
                     </p>
 
                 </div>
