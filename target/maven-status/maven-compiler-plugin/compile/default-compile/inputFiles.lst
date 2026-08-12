@@ -1,13 +1,18 @@
 /workspaces/CampusFin/src/main/java/com/campusfin/CampusFinApplication.java
 /workspaces/CampusFin/src/main/java/com/campusfin/controller/AiFinancialAnalysisController.java
+/workspaces/CampusFin/src/main/java/com/campusfin/controller/CollegeComparisonController.java
 /workspaces/CampusFin/src/main/java/com/campusfin/controller/CollegeCostController.java
 /workspaces/CampusFin/src/main/java/com/campusfin/controller/FinancialReadinessController.java
 /workspaces/CampusFin/src/main/java/com/campusfin/controller/HomeController.java
 /workspaces/CampusFin/src/main/java/com/campusfin/controller/MonthlyBudgetController.java
+/workspaces/CampusFin/src/main/java/com/campusfin/controller/WhatIfController.java
 /workspaces/CampusFin/src/main/java/com/campusfin/model/CollegeCostInput.java
+/workspaces/CampusFin/src/main/java/com/campusfin/model/CollegeOption.java
 /workspaces/CampusFin/src/main/java/com/campusfin/model/FinancialReadinessInput.java
 /workspaces/CampusFin/src/main/java/com/campusfin/model/MonthlyBudgetInput.java
 /workspaces/CampusFin/src/main/java/com/campusfin/model/StudentFinancialProfile.java
+/workspaces/CampusFin/src/main/java/com/campusfin/model/WhatIfScenario.java
+/workspaces/CampusFin/src/main/java/com/campusfin/repository/CollegeOptionRepository.java
 /workspaces/CampusFin/src/main/java/com/campusfin/repository/StudentFinancialProfileRepository.java
 /workspaces/CampusFin/src/main/java/com/campusfin/service/AiFinancialAnalysisService.java
 /workspaces/CampusFin/src/main/java/com/campusfin/service/AiReadinessService.java
@@ -15,3 +20,4 @@
 /workspaces/CampusFin/src/main/java/com/campusfin/service/FinancialReadinessService.java
 /workspaces/CampusFin/src/main/java/com/campusfin/service/MonthlyBudgetService.java
 /workspaces/CampusFin/src/main/java/com/campusfin/service/StudentFinancialProfileService.java
+/workspaces/CampusFin/src/main/java/com/campusfin/service/WhatIfService.java

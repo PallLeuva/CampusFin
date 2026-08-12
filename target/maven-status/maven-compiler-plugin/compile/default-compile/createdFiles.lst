@@ -1,4 +1,5 @@
 com/campusfin/model/StudentFinancialProfile.class
+com/campusfin/repository/CollegeOptionRepository.class
 com/campusfin/service/AiFinancialAnalysisService.class
 com/campusfin/controller/MonthlyBudgetController.class
 com/campusfin/controller/CollegeCostController.class
@@ -9,11 +10,16 @@ com/campusfin/controller/FinancialReadinessController.class
 com/campusfin/service/AiReadinessService.class
 com/campusfin/controller/HomeController.class
 com/campusfin/model/MonthlyBudgetInput.class
+com/campusfin/controller/WhatIfController.class
 com/campusfin/CampusFinApplication.class
 com/campusfin/service/AiReadinessService$1.class
 com/campusfin/controller/AiFinancialAnalysisController.class
 com/campusfin/service/StudentFinancialProfileService.class
+com/campusfin/model/CollegeOption.class
 com/campusfin/service/FinancialReadinessService.class
+com/campusfin/controller/CollegeComparisonController.class
+com/campusfin/service/WhatIfService.class
 com/campusfin/service/CollegeCostService.class
 com/campusfin/model/CollegeCostInput.class
+com/campusfin/model/WhatIfScenario.class
 com/campusfin/service/AiFinancialAnalysisService$1.class
