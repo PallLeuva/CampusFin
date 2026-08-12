@@ -1,6 +1,7 @@
 package com.campusfin.service;
 
 import com.campusfin.model.FinancialReadinessInput;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -13,10 +14,11 @@ public class AiReadinessService {
 
     private final RestClient restClient;
 
-    public AiReadinessService() {
+    public AiReadinessService(
+            @Value("${campusfin.ai.base-url}") String aiBaseUrl) {
 
         this.restClient = RestClient.builder()
-                .baseUrl("http://localhost:5000")
+                .baseUrl(aiBaseUrl)
                 .build();
     }
 
