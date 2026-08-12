@@ -1,9 +1,12 @@
 package com.campusfin.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class StudentFinancialProfile {
@@ -11,6 +14,13 @@ public class StudentFinancialProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "user_id",
+            unique = true
+    )
+    private User user;
 
     private double annualCollegeCost;
     private double fourYearCollegeCost;
@@ -38,6 +48,32 @@ public class StudentFinancialProfile {
 
 
     // ----------------------------------------------------
+    // ID
+    // ----------------------------------------------------
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    // ----------------------------------------------------
+    // User
+    // ----------------------------------------------------
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+    // ----------------------------------------------------
     // College Cost Getters and Setters
     // ----------------------------------------------------
 
@@ -55,13 +91,6 @@ public class StudentFinancialProfile {
 
     public void setFourYearCollegeCost(double fourYearCollegeCost) {
         this.fourYearCollegeCost = fourYearCollegeCost;
-    }
-    public Long getId() {
-    return id;
-    }
-
-    public void setId(Long id) {
-    this.id = id;
     }
 
     public double getAnnualFundingGap() {
