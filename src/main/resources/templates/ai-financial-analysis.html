@@ -14,44 +14,105 @@
 
 <body class="bg-light">
 
+
+<!-- ========================================================= -->
+<!-- NAVIGATION -->
+<!-- ========================================================= -->
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
     <div class="container">
 
         <a class="navbar-brand fw-bold" href="/">
             CampusFin
         </a>
 
-        <div class="navbar-nav ms-auto">
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+            aria-controls="navbarMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
-            <a class="nav-link" href="/">
-                Home
-            </a>
+            <span class="navbar-toggler-icon"></span>
 
-            <a class="nav-link" href="/college-cost">
-                College Cost
-            </a>
+        </button>
 
-            <a class="nav-link" href="/monthly-budget">
-                Monthly Budget
-            </a>
+        <div
+            class="collapse navbar-collapse"
+            id="navbarMenu">
 
-            <a class="nav-link" href="/financial-readiness">
-                Financial Readiness
-            </a>
+            <ul class="navbar-nav ms-auto">
 
-            <a class="nav-link active" href="/ai-financial-analysis">
-                AI Analysis
-            </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/college-cost">
+                        College Cost
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/monthly-budget">
+                        Monthly Budget
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/financial-readiness">
+                        Financial Readiness
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/college-comparison">
+                        College Comparison
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/what-if">
+                        What-If
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link active"
+                        aria-current="page"
+                        href="/ai-financial-analysis">
+
+                        AI Analysis
+
+                    </a>
+                </li>
+
+            </ul>
 
         </div>
 
     </div>
+
 </nav>
 
+
+<!-- ========================================================= -->
+<!-- MAIN CONTENT -->
+<!-- ========================================================= -->
 
 <main class="container py-5">
 
     <div class="mb-4">
+
+        <p class="text-primary fw-semibold mb-2">
+            Combined Financial Decision Support
+        </p>
 
         <h1 class="fw-bold">
             AI Financial Analysis
@@ -66,7 +127,9 @@
     </div>
 
 
-    <!-- No Profile Yet -->
+    <!-- ===================================================== -->
+    <!-- NO PROFILE YET -->
+    <!-- ===================================================== -->
 
     <div
         class="alert alert-warning"
@@ -83,33 +146,44 @@
 
         <a
             href="/college-cost"
-            class="btn btn-primary me-2">
+            class="btn btn-primary me-2 mb-2">
 
             Start with College Cost
+
         </a>
 
         <a
             href="/monthly-budget"
-            class="btn btn-outline-primary me-2">
+            class="btn btn-outline-primary me-2 mb-2">
 
             Monthly Budget
+
         </a>
 
         <a
             href="/financial-readiness"
-            class="btn btn-outline-primary">
+            class="btn btn-outline-primary mb-2">
 
             Financial Readiness
+
         </a>
 
     </div>
 
 
-    <!-- Profile Exists -->
+    <!-- ===================================================== -->
+    <!-- PROFILE EXISTS -->
+    <!-- ===================================================== -->
 
     <div th:if="${profileAvailable}">
 
+
+        <!-- ================================================= -->
+        <!-- PROFILE SUMMARY -->
+        <!-- ================================================= -->
+
         <div class="row g-4 mb-4">
+
 
             <!-- College Cost Metrics -->
 
@@ -119,7 +193,7 @@
 
                     <div class="card-body p-4">
 
-                        <h2 class="h5">
+                        <h2 class="h5 mb-3">
                             College Cost
                         </h2>
 
@@ -174,7 +248,7 @@
 
                     <div class="card-body p-4">
 
-                        <h2 class="h5">
+                        <h2 class="h5 mb-3">
                             Monthly Budget
                         </h2>
 
@@ -229,7 +303,7 @@
 
                     <div class="card-body p-4">
 
-                        <h2 class="h5">
+                        <h2 class="h5 mb-3">
                             Financial Readiness
                         </h2>
 
@@ -269,32 +343,45 @@
         </div>
 
 
-        <!-- Analysis Unavailable -->
+        <!-- ================================================= -->
+        <!-- ANALYSIS UNAVAILABLE -->
+        <!-- ================================================= -->
 
         <div
             class="alert alert-warning"
             th:if="${analysisAvailable == false}">
 
-            <strong>AI analysis unavailable.</strong>
+            <strong>
+                AI analysis unavailable.
+            </strong>
 
             <div
                 class="mt-2"
                 th:text="${analysisError}">
+
                 The AI service is unavailable.
+
             </div>
 
         </div>
 
 
-        <!-- AI Analysis -->
+        <!-- ================================================= -->
+        <!-- ANALYSIS AVAILABLE -->
+        <!-- ================================================= -->
 
         <div th:if="${analysisAvailable}">
+
+
+            <!-- Overall Risk -->
 
             <div class="card shadow-sm border-0 mb-4">
 
                 <div class="card-body p-4">
 
-                    <div class="d-flex justify-content-between align-items-start flex-wrap">
+                    <div
+                        class="d-flex justify-content-between
+                               align-items-start flex-wrap gap-3">
 
                         <div>
 
@@ -308,8 +395,9 @@
 
                         </div>
 
+
                         <span
-                            class="badge fs-6"
+                            class="badge fs-5"
                             th:classappend="${overallRisk == 'Low'}
                                 ? 'bg-success'
                                 : (${overallRisk == 'Moderate'}
@@ -323,10 +411,12 @@
 
                     </div>
 
+
                     <hr>
 
+
                     <h3 class="h5">
-                        AI Summary
+                        Analysis Summary
                     </h3>
 
                     <div class="alert alert-primary mt-3 mb-0">
@@ -342,6 +432,10 @@
             </div>
 
 
+            <!-- ================================================= -->
+            <!-- STRENGTHS / CONCERNS / RECOMMENDATIONS -->
+            <!-- ================================================= -->
+
             <div class="row g-4">
 
 
@@ -353,7 +447,7 @@
 
                         <div class="card-body p-4">
 
-                            <h2 class="h5">
+                            <h2 class="h5 mb-3">
                                 Financial Strengths
                             </h2>
 
@@ -385,7 +479,7 @@
 
                         <div class="card-body p-4">
 
-                            <h2 class="h5">
+                            <h2 class="h5 mb-3">
                                 Financial Concerns
                             </h2>
 
@@ -417,7 +511,7 @@
 
                         <div class="card-body p-4">
 
-                            <h2 class="h5">
+                            <h2 class="h5 mb-3">
                                 Priority Recommendations
                             </h2>
 
@@ -449,15 +543,50 @@
             </div>
 
 
+            <!-- ================================================= -->
+            <!-- EXPLANATION -->
+            <!-- ================================================= -->
+
+            <div class="card shadow-sm border-0 mt-4">
+
+                <div class="card-body p-4">
+
+                    <h2 class="h5">
+                        How This Analysis Is Produced
+                    </h2>
+
+                    <p class="text-secondary mb-0">
+
+                        The combined CampusFin financial analysis currently
+                        uses transparent rule-based indicators derived from
+                        your saved college-cost, monthly-budget, and
+                        financial-readiness information.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- EXPERIMENTAL NOTICE -->
+            <!-- ================================================= -->
+
             <div class="alert alert-secondary mt-4">
 
-                <strong>Experimental AI Notice:</strong>
+                <strong>
+                    Experimental AI Notice:
+                </strong>
 
                 <div class="mt-2">
-                    This analysis combines rule-based financial indicators
-                    and experimental AI logic. The current ML component uses
-                    synthetic training data and has not been scientifically
-                    validated for financial decision-making.
+
+                    The combined financial-risk analysis currently uses
+                    transparent rule-based decision logic. CampusFin's separate
+                    Financial Readiness machine-learning model uses synthetic
+                    training data and has not been scientifically validated
+                    for financial decision-making.
+
                 </div>
 
             </div>
@@ -469,18 +598,62 @@
 </main>
 
 
+<!-- ========================================================= -->
+<!-- FOOTER -->
+<!-- ========================================================= -->
+
 <footer class="border-top bg-white py-4 mt-5">
 
     <div class="container">
 
-        <p class="mb-1 fw-semibold">
-            CampusFin
-        </p>
+        <div
+            class="d-flex flex-column flex-md-row
+                   justify-content-between align-items-md-center gap-3">
 
-        <p class="mb-0 text-muted small">
-            CampusFin provides educational estimates and experimental
-            analysis and does not provide financial, legal, investment,
-            lending, or tax advice.
+            <div>
+
+                <p class="fw-bold mb-1">
+                    CampusFin
+                </p>
+
+                <p class="text-muted small mb-0">
+
+                    Educational and experimental
+                    college financial-readiness platform.
+
+                </p>
+
+            </div>
+
+
+            <div class="d-flex flex-wrap gap-3">
+
+                <a
+                    href="/privacy"
+                    class="text-decoration-none">
+
+                    Privacy
+
+                </a>
+
+                <a
+                    href="/terms"
+                    class="text-decoration-none">
+
+                    Terms &amp; Disclaimer
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <hr>
+
+
+        <p class="text-muted small mb-0">
+            © 2026 CampusFin. All rights reserved.
         </p>
 
     </div>

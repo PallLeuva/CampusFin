@@ -14,40 +14,105 @@
 
 <body class="bg-light">
 
+
+<!-- ========================================================= -->
+<!-- NAVIGATION -->
+<!-- ========================================================= -->
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
     <div class="container">
 
         <a class="navbar-brand fw-bold" href="/">
             CampusFin
         </a>
 
-        <div class="navbar-nav ms-auto">
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+            aria-controls="navbarMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
-            <a class="nav-link" href="/">
-                Home
-            </a>
+            <span class="navbar-toggler-icon"></span>
 
-            <a class="nav-link" href="/college-cost">
-                College Cost
-            </a>
+        </button>
 
-            <a class="nav-link" href="/monthly-budget">
-                Monthly Budget
-            </a>
+        <div
+            class="collapse navbar-collapse"
+            id="navbarMenu">
 
-            <a class="nav-link active" href="/financial-readiness">
-                Financial Readiness
-            </a>
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/college-cost">
+                        College Cost
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/monthly-budget">
+                        Monthly Budget
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link active"
+                        aria-current="page"
+                        href="/financial-readiness">
+
+                        Financial Readiness
+
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/college-comparison">
+                        College Comparison
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/what-if">
+                        What-If
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/ai-financial-analysis">
+                        AI Analysis
+                    </a>
+                </li>
+
+            </ul>
 
         </div>
 
     </div>
+
 </nav>
 
+
+<!-- ========================================================= -->
+<!-- MAIN CONTENT -->
+<!-- ========================================================= -->
 
 <main class="container py-5">
 
     <div class="mb-4">
+
+        <p class="text-primary fw-semibold mb-2">
+            Financial Knowledge &amp; Preparedness
+        </p>
 
         <h1 class="fw-bold">
             Financial Readiness Assessment
@@ -60,11 +125,14 @@
         </p>
 
         <div class="alert alert-light border">
+
             <strong>How it works:</strong>
+
             The rule-based model uses predefined weights.
             The AI / ML model analyzes the same responses and produces
             a prediction, strengths, improvement areas, recommendations,
             and a personalized summary.
+
         </div>
 
     </div>
@@ -72,27 +140,56 @@
 
     <div class="row g-4">
 
-        <!-- Assessment Form -->
+
+        <!-- ================================================= -->
+        <!-- ASSESSMENT FORM -->
+        <!-- ================================================= -->
 
         <div class="col-lg-7">
 
             <form
                 method="post"
-                action="/financial-readiness"
+                th:action="@{/financial-readiness}"
                 th:object="${financialReadinessInput}"
                 class="card shadow-sm border-0">
 
                 <div class="card-body p-4">
 
+
+                    <!-- Validation Summary -->
+
+                    <div
+                        class="alert alert-danger"
+                        th:if="${#fields.hasAnyErrors()}">
+
+                        <strong>
+                            Please correct the highlighted fields.
+                        </strong>
+
+                        <div class="mt-2">
+                            Each response must be between 1 and 5.
+                        </div>
+
+                    </div>
+
+
+                    <!-- Question 1 -->
+
                     <div class="mb-4">
 
-                        <label class="form-label fw-semibold">
+                        <label
+                            for="budgetingKnowledge"
+                            class="form-label fw-semibold">
+
                             1. How well do you understand how to create
                             and follow a monthly budget?
+
                         </label>
 
                         <select
+                            id="budgetingKnowledge"
                             class="form-select"
+                            th:classappend="${#fields.hasErrors('budgetingKnowledge')} ? 'is-invalid'"
                             th:field="*{budgetingKnowledge}"
                             required>
 
@@ -104,18 +201,32 @@
 
                         </select>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('budgetingKnowledge')}"
+                            th:errors="*{budgetingKnowledge}">
+                        </div>
+
                     </div>
 
 
+                    <!-- Question 2 -->
+
                     <div class="mb-4">
 
-                        <label class="form-label fw-semibold">
+                        <label
+                            for="collegeCostKnowledge"
+                            class="form-label fw-semibold">
+
                             2. How well do you understand the total
                             cost of attending college?
+
                         </label>
 
                         <select
+                            id="collegeCostKnowledge"
                             class="form-select"
+                            th:classappend="${#fields.hasErrors('collegeCostKnowledge')} ? 'is-invalid'"
                             th:field="*{collegeCostKnowledge}"
                             required>
 
@@ -127,18 +238,32 @@
 
                         </select>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('collegeCostKnowledge')}"
+                            th:errors="*{collegeCostKnowledge}">
+                        </div>
+
                     </div>
 
 
+                    <!-- Question 3 -->
+
                     <div class="mb-4">
 
-                        <label class="form-label fw-semibold">
+                        <label
+                            for="scholarshipKnowledge"
+                            class="form-label fw-semibold">
+
                             3. How well do you understand scholarships
                             and financial-aid options?
+
                         </label>
 
                         <select
+                            id="scholarshipKnowledge"
                             class="form-select"
+                            th:classappend="${#fields.hasErrors('scholarshipKnowledge')} ? 'is-invalid'"
                             th:field="*{scholarshipKnowledge}"
                             required>
 
@@ -150,18 +275,32 @@
 
                         </select>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('scholarshipKnowledge')}"
+                            th:errors="*{scholarshipKnowledge}">
+                        </div>
+
                     </div>
 
 
+                    <!-- Question 4 -->
+
                     <div class="mb-4">
 
-                        <label class="form-label fw-semibold">
+                        <label
+                            for="creditKnowledge"
+                            class="form-label fw-semibold">
+
                             4. How well do you understand credit scores,
                             credit cards, and responsible credit use?
+
                         </label>
 
                         <select
+                            id="creditKnowledge"
                             class="form-select"
+                            th:classappend="${#fields.hasErrors('creditKnowledge')} ? 'is-invalid'"
                             th:field="*{creditKnowledge}"
                             required>
 
@@ -173,18 +312,32 @@
 
                         </select>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('creditKnowledge')}"
+                            th:errors="*{creditKnowledge}">
+                        </div>
+
                     </div>
 
 
+                    <!-- Question 5 -->
+
                     <div class="mb-4">
 
-                        <label class="form-label fw-semibold">
+                        <label
+                            for="debtKnowledge"
+                            class="form-label fw-semibold">
+
                             5. How well do you understand student loans,
                             interest, and debt repayment?
+
                         </label>
 
                         <select
+                            id="debtKnowledge"
                             class="form-select"
+                            th:classappend="${#fields.hasErrors('debtKnowledge')} ? 'is-invalid'"
                             th:field="*{debtKnowledge}"
                             required>
 
@@ -196,18 +349,32 @@
 
                         </select>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('debtKnowledge')}"
+                            th:errors="*{debtKnowledge}">
+                        </div>
+
                     </div>
 
 
+                    <!-- Question 6 -->
+
                     <div class="mb-4">
 
-                        <label class="form-label fw-semibold">
+                        <label
+                            for="emergencyFundKnowledge"
+                            class="form-label fw-semibold">
+
                             6. How well do you understand the purpose
                             of an emergency fund?
+
                         </label>
 
                         <select
+                            id="emergencyFundKnowledge"
                             class="form-select"
+                            th:classappend="${#fields.hasErrors('emergencyFundKnowledge')} ? 'is-invalid'"
                             th:field="*{emergencyFundKnowledge}"
                             required>
 
@@ -219,18 +386,32 @@
 
                         </select>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('emergencyFundKnowledge')}"
+                            th:errors="*{emergencyFundKnowledge}">
+                        </div>
+
                     </div>
 
 
+                    <!-- Question 7 -->
+
                     <div class="mb-4">
 
-                        <label class="form-label fw-semibold">
+                        <label
+                            for="savingsHabit"
+                            class="form-label fw-semibold">
+
                             7. How consistently do you save part
                             of your available money?
+
                         </label>
 
                         <select
+                            id="savingsHabit"
                             class="form-select"
+                            th:classappend="${#fields.hasErrors('savingsHabit')} ? 'is-invalid'"
                             th:field="*{savingsHabit}"
                             required>
 
@@ -242,18 +423,32 @@
 
                         </select>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('savingsHabit')}"
+                            th:errors="*{savingsHabit}">
+                        </div>
+
                     </div>
 
 
+                    <!-- Question 8 -->
+
                     <div class="mb-4">
 
-                        <label class="form-label fw-semibold">
+                        <label
+                            for="confidenceLevel"
+                            class="form-label fw-semibold">
+
                             8. How confident are you in making
                             financial decisions for college?
+
                         </label>
 
                         <select
+                            id="confidenceLevel"
                             class="form-select"
+                            th:classappend="${#fields.hasErrors('confidenceLevel')} ? 'is-invalid'"
                             th:field="*{confidenceLevel}"
                             required>
 
@@ -264,6 +459,12 @@
                             <option value="5">5 - Very confident</option>
 
                         </select>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('confidenceLevel')}"
+                            th:errors="*{confidenceLevel}">
+                        </div>
 
                     </div>
 
@@ -283,7 +484,9 @@
         </div>
 
 
-        <!-- Results -->
+        <!-- ================================================= -->
+        <!-- RESULTS -->
+        <!-- ================================================= -->
 
         <div class="col-lg-5">
 
@@ -304,8 +507,11 @@
                         Transparent weighted scoring model
                     </p>
 
+
                     <p>
-                        <strong>Weighted readiness score:</strong>
+                        <strong>
+                            Weighted readiness score:
+                        </strong>
 
                         <span
                             th:text="${#numbers.formatDecimal(percentageScore, 1, 1)}">
@@ -313,31 +519,42 @@
                         </span>%
                     </p>
 
+
                     <p>
-                        <strong>Readiness level:</strong>
+                        <strong>
+                            Readiness level:
+                        </strong>
 
                         <span th:text="${readinessLevel}">
                             Level
                         </span>
                     </p>
 
+
                     <p>
-                        <strong>Strongest area:</strong>
+                        <strong>
+                            Strongest area:
+                        </strong>
 
                         <span th:text="${strongestArea}">
                             Strongest area
                         </span>
                     </p>
 
+
                     <p>
-                        <strong>Area to improve:</strong>
+                        <strong>
+                            Area to improve:
+                        </strong>
 
                         <span th:text="${weakestArea}">
                             Weakest area
                         </span>
                     </p>
 
+
                     <hr>
+
 
                     <h3 class="h5">
                         Recommendation
@@ -376,15 +593,20 @@
                     <div th:if="${aiAvailable}">
 
                         <p>
-                            <strong>AI prediction:</strong>
+                            <strong>
+                                AI prediction:
+                            </strong>
 
                             <span th:text="${aiPrediction}">
                                 Prediction
                             </span>
                         </p>
 
+
                         <p>
-                            <strong>Model confidence:</strong>
+                            <strong>
+                                Model confidence:
+                            </strong>
 
                             <span th:text="${aiConfidence}">
                                 0
@@ -470,13 +692,17 @@
 
                         <div class="alert alert-secondary mb-0">
 
-                            <strong>Experimental AI Notice:</strong>
+                            <strong>
+                                Experimental AI Notice:
+                            </strong>
 
                             <div class="mt-2">
+
                                 The machine-learning model currently uses
                                 synthetic training data. Its predictions and
                                 recommendations are experimental and should not
                                 be treated as validated financial advice.
+
                             </div>
 
                         </div>
@@ -514,26 +740,36 @@
                     </h2>
 
                     <p class="text-muted small">
+
                         Comparison between the transparent rule-based model
                         and the experimental machine-learning model.
+
                     </p>
 
 
                     <p>
-                        <strong>Rule-based result:</strong>
+
+                        <strong>
+                            Rule-based result:
+                        </strong>
 
                         <span th:text="${readinessLevel}">
                             Rule-based level
                         </span>
+
                     </p>
 
 
                     <p>
-                        <strong>AI / ML result:</strong>
+
+                        <strong>
+                            AI / ML result:
+                        </strong>
 
                         <span th:text="${aiPrediction}">
                             AI prediction
                         </span>
+
                     </p>
 
 
@@ -592,21 +828,83 @@
 
     </div>
 
+
+    <!-- ===================================================== -->
+    <!-- EDUCATIONAL NOTICE -->
+    <!-- ===================================================== -->
+
+    <div class="alert alert-secondary mt-4">
+
+        <strong>
+            Educational and Experimental Use:
+        </strong>
+
+        CampusFin provides educational estimates and experimental
+        self-assessments. The readiness ML model currently uses synthetic
+        training data and has not been scientifically validated for
+        financial decision-making.
+
+    </div>
+
 </main>
 
+
+<!-- ========================================================= -->
+<!-- FOOTER -->
+<!-- ========================================================= -->
 
 <footer class="border-top bg-white py-4 mt-5">
 
     <div class="container">
 
-        <p class="mb-1 fw-semibold">
-            CampusFin
-        </p>
+        <div
+            class="d-flex flex-column flex-md-row
+                   justify-content-between align-items-md-center gap-3">
 
-        <p class="mb-0 text-muted small">
-            CampusFin provides educational estimates and experimental
-            self-assessments and does not provide financial, legal,
-            investment, lending, or tax advice.
+            <div>
+
+                <p class="fw-bold mb-1">
+                    CampusFin
+                </p>
+
+                <p class="text-muted small mb-0">
+
+                    Educational and experimental
+                    college financial-readiness platform.
+
+                </p>
+
+            </div>
+
+
+            <div class="d-flex flex-wrap gap-3">
+
+                <a
+                    href="/privacy"
+                    class="text-decoration-none">
+
+                    Privacy
+
+                </a>
+
+                <a
+                    href="/terms"
+                    class="text-decoration-none">
+
+                    Terms &amp; Disclaimer
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <hr>
+
+
+        <p class="text-muted small mb-0">
+            © 2026 CampusFin. All rights reserved.
         </p>
 
     </div>

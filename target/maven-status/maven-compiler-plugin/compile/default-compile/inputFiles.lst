@@ -4,6 +4,7 @@
 /workspaces/CampusFin/src/main/java/com/campusfin/controller/CollegeCostController.java
 /workspaces/CampusFin/src/main/java/com/campusfin/controller/FinancialReadinessController.java
 /workspaces/CampusFin/src/main/java/com/campusfin/controller/HomeController.java
+/workspaces/CampusFin/src/main/java/com/campusfin/controller/LegalController.java
 /workspaces/CampusFin/src/main/java/com/campusfin/controller/MonthlyBudgetController.java
 /workspaces/CampusFin/src/main/java/com/campusfin/controller/WhatIfController.java
 /workspaces/CampusFin/src/main/java/com/campusfin/model/CollegeCostInput.java

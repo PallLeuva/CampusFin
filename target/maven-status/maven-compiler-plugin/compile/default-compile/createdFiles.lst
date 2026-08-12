@@ -7,6 +7,7 @@ com/campusfin/service/MonthlyBudgetService.class
 com/campusfin/model/FinancialReadinessInput.class
 com/campusfin/repository/StudentFinancialProfileRepository.class
 com/campusfin/controller/FinancialReadinessController.class
+com/campusfin/controller/LegalController.class
 com/campusfin/service/AiReadinessService.class
 com/campusfin/controller/HomeController.class
 com/campusfin/model/MonthlyBudgetInput.class
