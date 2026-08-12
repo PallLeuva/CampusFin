@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentFinancialProfileService {
 
-    private static final String SESSION_PROFILE_ID =
-            "studentFinancialProfileId";
+    private static final String SESSION_PROFILE =
+            "studentFinancialProfile";
 
     private final StudentFinancialProfileRepository repository;
     private final UserRepository userRepository;
@@ -28,30 +28,60 @@ public class StudentFinancialProfileService {
 
 
     // ----------------------------------------------------
-    // Get existing profile or create one for logged-in user
+    // Get profile for logged-in or anonymous user
     // ----------------------------------------------------
 
     public StudentFinancialProfile getOrCreateProfile(
             HttpSession session) {
 
-        User currentUser = getCurrentUser();
+        User currentUser = getCurrentUserOrNull();
 
-        StudentFinancialProfile profile =
-                repository
-                        .findByUser(currentUser)
-                        .orElseGet(() ->
-                                createNewProfile(
-                                        currentUser,
-                                        session
-                                )
+        /*
+         * Logged-in user:
+         * load or create persistent database profile.
+         */
+        if (currentUser != null) {
+
+            StudentFinancialProfile profile =
+                    repository
+                            .findByUser(currentUser)
+                            .orElseGet(() ->
+                                    createPersistentProfile(
+                                            currentUser
+                                    )
+                            );
+
+            session.setAttribute(
+                    SESSION_PROFILE,
+                    profile
+            );
+
+            return profile;
+        }
+
+
+        /*
+         * Anonymous user:
+         * keep profile only in browser session.
+         */
+        StudentFinancialProfile sessionProfile =
+                (StudentFinancialProfile)
+                        session.getAttribute(
+                                SESSION_PROFILE
                         );
 
-        updateSession(
-                profile,
-                session
-        );
+        if (sessionProfile == null) {
 
-        return profile;
+            sessionProfile =
+                    new StudentFinancialProfile();
+
+            session.setAttribute(
+                    SESSION_PROFILE,
+                    sessionProfile
+            );
+        }
+
+        return sessionProfile;
     }
 
 
@@ -63,23 +93,40 @@ public class StudentFinancialProfileService {
             StudentFinancialProfile profile,
             HttpSession session) {
 
-        User currentUser = getCurrentUser();
+        User currentUser = getCurrentUserOrNull();
 
         /*
-         * Make sure the profile always belongs
-         * to the currently authenticated user.
+         * Logged-in user:
+         * save permanently in database.
          */
-        profile.setUser(currentUser);
+        if (currentUser != null) {
 
-        StudentFinancialProfile savedProfile =
-                repository.save(profile);
+            profile.setUser(currentUser);
 
-        updateSession(
-                savedProfile,
-                session
+            StudentFinancialProfile savedProfile =
+                    repository.save(profile);
+
+            session.setAttribute(
+                    SESSION_PROFILE,
+                    savedProfile
+            );
+
+            return savedProfile;
+        }
+
+
+        /*
+         * Anonymous user:
+         * keep only in browser session.
+         */
+        profile.setUser(null);
+
+        session.setAttribute(
+                SESSION_PROFILE,
+                profile
         );
 
-        return savedProfile;
+        return profile;
     }
 
 
@@ -90,64 +137,63 @@ public class StudentFinancialProfileService {
     public StudentFinancialProfile getSavedProfile(
             HttpSession session) {
 
-        User currentUser = getCurrentUser();
+        User currentUser = getCurrentUserOrNull();
 
-        StudentFinancialProfile profile =
-                repository
-                        .findByUser(currentUser)
-                        .orElse(null);
+        /*
+         * Logged-in user:
+         * retrieve persistent profile.
+         */
+        if (currentUser != null) {
 
-        if (profile != null) {
+            StudentFinancialProfile profile =
+                    repository
+                            .findByUser(currentUser)
+                            .orElse(null);
 
-            updateSession(
-                    profile,
-                    session
-            );
-        } else {
+            if (profile != null) {
 
-            session.removeAttribute(
-                    SESSION_PROFILE_ID
-            );
+                session.setAttribute(
+                        SESSION_PROFILE,
+                        profile
+                );
+            }
 
-            session.removeAttribute(
-                    "studentFinancialProfile"
-            );
+            return profile;
         }
 
-        return profile;
+
+        /*
+         * Anonymous user:
+         * retrieve temporary session profile.
+         */
+        return (StudentFinancialProfile)
+                session.getAttribute(
+                        SESSION_PROFILE
+                );
     }
 
 
     // ----------------------------------------------------
-    // Create New Profile
+    // Create Persistent Profile
     // ----------------------------------------------------
 
-    private StudentFinancialProfile createNewProfile(
-            User currentUser,
-            HttpSession session) {
+    private StudentFinancialProfile createPersistentProfile(
+            User currentUser) {
 
         StudentFinancialProfile profile =
                 new StudentFinancialProfile();
 
         profile.setUser(currentUser);
 
-        StudentFinancialProfile savedProfile =
-                repository.save(profile);
-
-        updateSession(
-                savedProfile,
-                session
-        );
-
-        return savedProfile;
+        return repository.save(profile);
     }
 
 
     // ----------------------------------------------------
-    // Current Logged-In User
+    // Get Current Logged-In User If Available
     // ----------------------------------------------------
 
-    private User getCurrentUser() {
+    private User getCurrentUserOrNull() {
 
         Authentication authentication =
                 SecurityContextHolder
@@ -160,9 +206,7 @@ public class StudentFinancialProfileService {
                         authentication.getPrincipal()
                 )) {
 
-            throw new IllegalStateException(
-                    "A logged-in CampusFin account is required."
-            );
+            return null;
         }
 
         String email =
@@ -173,34 +217,6 @@ public class StudentFinancialProfileService {
 
         return userRepository
                 .findByEmail(email)
-                .orElseThrow(() ->
-                        new IllegalStateException(
-                                "Logged-in CampusFin user could not be found."
-                        )
-                );
-    }
-
-
-    // ----------------------------------------------------
-    // Maintain Existing Session Attributes
-    // ----------------------------------------------------
-
-    private void updateSession(
-            StudentFinancialProfile profile,
-            HttpSession session) {
-
-        session.setAttribute(
-                SESSION_PROFILE_ID,
-                profile.getId()
-        );
-
-        /*
-         * Keep this temporarily because some existing
-         * CampusFin controllers may still use it.
-         */
-        session.setAttribute(
-                "studentFinancialProfile",
-                profile
-        );
+                .orElse(null);
     }
 }

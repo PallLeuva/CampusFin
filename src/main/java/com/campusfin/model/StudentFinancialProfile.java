@@ -46,11 +46,6 @@ public class StudentFinancialProfile {
     private int savingsHabit;
     private int confidenceLevel;
 
-
-    // ----------------------------------------------------
-    // ID
-    // ----------------------------------------------------
-
     public Long getId() {
         return id;
     }
@@ -59,11 +54,6 @@ public class StudentFinancialProfile {
         this.id = id;
     }
 
-
-    // ----------------------------------------------------
-    // User
-    // ----------------------------------------------------
-
     public User getUser() {
         return user;
     }
@@ -71,11 +61,6 @@ public class StudentFinancialProfile {
     public void setUser(User user) {
         this.user = user;
     }
-
-
-    // ----------------------------------------------------
-    // College Cost Getters and Setters
-    // ----------------------------------------------------
 
     public double getAnnualCollegeCost() {
         return annualCollegeCost;
@@ -117,11 +102,6 @@ public class StudentFinancialProfile {
         this.scholarshipCoverage = scholarshipCoverage;
     }
 
-
-    // ----------------------------------------------------
-    // Monthly Budget Getters and Setters
-    // ----------------------------------------------------
-
     public double getMonthlyIncome() {
         return monthlyIncome;
     }
@@ -161,11 +141,6 @@ public class StudentFinancialProfile {
     public void setEmergencyFundCoverage(double emergencyFundCoverage) {
         this.emergencyFundCoverage = emergencyFundCoverage;
     }
-
-
-    // ----------------------------------------------------
-    // Readiness Getters and Setters
-    // ----------------------------------------------------
 
     public double getReadinessScore() {
         return readinessScore;

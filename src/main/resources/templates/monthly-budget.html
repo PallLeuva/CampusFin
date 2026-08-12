@@ -134,6 +134,11 @@
                     </div>
 
 
+                    <div class="alert alert-light border small text-secondary">
+                        Blank numeric fields are treated as $0.
+                    </div>
+
+
                     <h2 class="h5 mb-3">
                         Monthly Income
                     </h2>
@@ -159,7 +164,7 @@
                             class="form-control"
                             th:classappend="${#fields.hasErrors('monthlyIncome')} ? 'is-invalid'"
                             th:field="*{monthlyIncome}"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -201,7 +206,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('housing')} ? 'is-invalid'"
                                 th:field="*{housing}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -235,7 +240,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('food')} ? 'is-invalid'"
                                 th:field="*{food}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -269,7 +274,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('transportation')} ? 'is-invalid'"
                                 th:field="*{transportation}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -303,7 +308,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('books')} ? 'is-invalid'"
                                 th:field="*{books}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -337,7 +342,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('entertainment')} ? 'is-invalid'"
                                 th:field="*{entertainment}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -371,7 +376,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('subscriptions')} ? 'is-invalid'"
                                 th:field="*{subscriptions}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -405,7 +410,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('otherExpenses')} ? 'is-invalid'"
                                 th:field="*{otherExpenses}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -439,7 +444,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('emergencySavings')} ? 'is-invalid'"
                                 th:field="*{emergencySavings}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -484,6 +489,7 @@
                         Budget Results
                     </h2>
 
+
                     <p>
 
                         <strong>
@@ -491,7 +497,11 @@
                         </strong>
 
                         <span
-                            th:text="${#numbers.formatCurrency(monthlyBudgetInput.monthlyIncome)}">
+                            th:text="${#numbers.formatCurrency(
+                                monthlyBudgetInput.monthlyIncome != null
+                                ? monthlyBudgetInput.monthlyIncome
+                                : 0
+                            )}">
 
                             $0.00
 

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -44,7 +46,9 @@
             class="collapse navbar-collapse"
             id="navbarMenu">
 
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <!-- Home -->
 
                 <li class="nav-item">
 
@@ -60,6 +64,8 @@
                 </li>
 
 
+                <!-- College Cost -->
+
                 <li class="nav-item">
 
                     <a
@@ -72,6 +78,8 @@
 
                 </li>
 
+
+                <!-- Monthly Budget -->
 
                 <li class="nav-item">
 
@@ -86,6 +94,8 @@
                 </li>
 
 
+                <!-- Financial Readiness -->
+
                 <li class="nav-item">
 
                     <a
@@ -98,6 +108,8 @@
 
                 </li>
 
+
+                <!-- College Comparison -->
 
                 <li class="nav-item">
 
@@ -112,6 +124,8 @@
                 </li>
 
 
+                <!-- What-If -->
+
                 <li class="nav-item">
 
                     <a
@@ -125,6 +139,8 @@
                 </li>
 
 
+                <!-- AI Analysis -->
+
                 <li class="nav-item">
 
                     <a
@@ -132,6 +148,89 @@
                         href="/ai-financial-analysis">
 
                         AI Analysis
+
+                    </a>
+
+                </li>
+
+
+                <!-- ================================================= -->
+                <!-- LOGGED-IN ACCOUNT CONTROLS -->
+                <!-- ================================================= -->
+
+                <li
+                    class="nav-item ms-lg-3"
+                    sec:authorize="isAuthenticated()">
+
+                    <span class="navbar-text small text-light">
+
+                        <span class="text-secondary">
+                            Signed in as
+                        </span>
+
+                        <strong
+                            class="ms-1"
+                            sec:authentication="name">
+
+                            user@example.com
+
+                        </strong>
+
+                    </span>
+
+                </li>
+
+
+                <li
+                    class="nav-item ms-lg-2"
+                    sec:authorize="isAuthenticated()">
+
+                    <form
+                        th:action="@{/logout}"
+                        method="post"
+                        class="d-inline">
+
+                        <button
+                            type="submit"
+                            class="btn btn-outline-light btn-sm">
+
+                            Logout
+
+                        </button>
+
+                    </form>
+
+                </li>
+
+
+                <!-- ================================================= -->
+                <!-- LOGGED-OUT ACCOUNT CONTROLS -->
+                <!-- ================================================= -->
+
+                <li
+                    class="nav-item ms-lg-3"
+                    sec:authorize="isAnonymous()">
+
+                    <a
+                        class="nav-link"
+                        href="/login">
+
+                        Login
+
+                    </a>
+
+                </li>
+
+
+                <li
+                    class="nav-item ms-lg-2"
+                    sec:authorize="isAnonymous()">
+
+                    <a
+                        class="btn btn-primary btn-sm"
+                        href="/signup">
+
+                        Sign Up
 
                     </a>
 
@@ -180,6 +279,8 @@
 
                 </p>
 
+
+                <!-- Feature buttons are available to everyone -->
 
                 <div class="d-flex flex-wrap gap-2">
 
@@ -233,6 +334,35 @@
                         class="btn btn-dark btn-lg">
 
                         AI Analysis
+
+                    </a>
+
+                </div>
+
+
+                <!-- Optional account prompt for anonymous visitors -->
+
+                <div
+                    class="mt-4"
+                    sec:authorize="isAnonymous()">
+
+                    <p class="text-secondary mb-2">
+                        Want to save your personal CampusFin profile?
+                    </p>
+
+                    <a
+                        href="/signup"
+                        class="btn btn-sm btn-outline-primary me-2">
+
+                        Create Account
+
+                    </a>
+
+                    <a
+                        href="/login"
+                        class="btn btn-sm btn-outline-secondary">
+
+                        Login
 
                     </a>
 

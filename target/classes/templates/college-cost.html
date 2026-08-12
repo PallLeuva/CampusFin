@@ -131,6 +131,11 @@
                     </div>
 
 
+                    <div class="alert alert-light border small text-secondary">
+                        Blank numeric fields are treated as $0.
+                    </div>
+
+
                     <div class="row g-3">
 
 
@@ -154,7 +159,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('tuition')} ? 'is-invalid'"
                                 th:field="*{tuition}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -188,7 +193,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('scholarship')} ? 'is-invalid'"
                                 th:field="*{scholarship}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -222,7 +227,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('housing')} ? 'is-invalid'"
                                 th:field="*{housing}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -256,7 +261,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('food')} ? 'is-invalid'"
                                 th:field="*{food}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -290,7 +295,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('books')} ? 'is-invalid'"
                                 th:field="*{books}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -324,7 +329,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('transportation')} ? 'is-invalid'"
                                 th:field="*{transportation}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -358,7 +363,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('familyContribution')} ? 'is-invalid'"
                                 th:field="*{familyContribution}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"
@@ -392,7 +397,7 @@
                                 class="form-control"
                                 th:classappend="${#fields.hasErrors('studentIncome')} ? 'is-invalid'"
                                 th:field="*{studentIncome}"
-                                required>
+                                placeholder="Enter amount">
 
                             <div
                                 class="invalid-feedback"

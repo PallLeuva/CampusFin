@@ -7,126 +7,126 @@ public class MonthlyBudgetInput {
     @PositiveOrZero(
             message = "Monthly income cannot be negative."
     )
-    private double monthlyIncome;
+    private Double monthlyIncome;
 
     @PositiveOrZero(
             message = "Housing expense cannot be negative."
     )
-    private double housing;
+    private Double housing;
 
     @PositiveOrZero(
             message = "Food expense cannot be negative."
     )
-    private double food;
+    private Double food;
 
     @PositiveOrZero(
             message = "Transportation expense cannot be negative."
     )
-    private double transportation;
+    private Double transportation;
 
     @PositiveOrZero(
             message = "Books expense cannot be negative."
     )
-    private double books;
+    private Double books;
 
     @PositiveOrZero(
             message = "Entertainment expense cannot be negative."
     )
-    private double entertainment;
+    private Double entertainment;
 
     @PositiveOrZero(
             message = "Subscription expense cannot be negative."
     )
-    private double subscriptions;
+    private Double subscriptions;
 
     @PositiveOrZero(
             message = "Other expenses cannot be negative."
     )
-    private double otherExpenses;
+    private Double otherExpenses;
 
     @PositiveOrZero(
             message = "Emergency savings cannot be negative."
     )
-    private double emergencySavings;
+    private Double emergencySavings;
 
 
-    public double getMonthlyIncome() {
+    public Double getMonthlyIncome() {
         return monthlyIncome;
     }
 
-    public void setMonthlyIncome(double monthlyIncome) {
+    public void setMonthlyIncome(Double monthlyIncome) {
         this.monthlyIncome = monthlyIncome;
     }
 
 
-    public double getHousing() {
+    public Double getHousing() {
         return housing;
     }
 
-    public void setHousing(double housing) {
+    public void setHousing(Double housing) {
         this.housing = housing;
     }
 
 
-    public double getFood() {
+    public Double getFood() {
         return food;
     }
 
-    public void setFood(double food) {
+    public void setFood(Double food) {
         this.food = food;
     }
 
 
-    public double getTransportation() {
+    public Double getTransportation() {
         return transportation;
     }
 
-    public void setTransportation(double transportation) {
+    public void setTransportation(Double transportation) {
         this.transportation = transportation;
     }
 
 
-    public double getBooks() {
+    public Double getBooks() {
         return books;
     }
 
-    public void setBooks(double books) {
+    public void setBooks(Double books) {
         this.books = books;
     }
 
 
-    public double getEntertainment() {
+    public Double getEntertainment() {
         return entertainment;
     }
 
-    public void setEntertainment(double entertainment) {
+    public void setEntertainment(Double entertainment) {
         this.entertainment = entertainment;
     }
 
 
-    public double getSubscriptions() {
+    public Double getSubscriptions() {
         return subscriptions;
     }
 
-    public void setSubscriptions(double subscriptions) {
+    public void setSubscriptions(Double subscriptions) {
         this.subscriptions = subscriptions;
     }
 
 
-    public double getOtherExpenses() {
+    public Double getOtherExpenses() {
         return otherExpenses;
     }
 
-    public void setOtherExpenses(double otherExpenses) {
+    public void setOtherExpenses(Double otherExpenses) {
         this.otherExpenses = otherExpenses;
     }
 
 
-    public double getEmergencySavings() {
+    public Double getEmergencySavings() {
         return emergencySavings;
     }
 
-    public void setEmergencySavings(double emergencySavings) {
+    public void setEmergencySavings(Double emergencySavings) {
         this.emergencySavings = emergencySavings;
     }
 }

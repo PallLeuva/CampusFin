@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
 
     <title>What-If Simulator | CampusFin</title>
 
@@ -18,7 +21,9 @@
 
     <div class="container">
 
-        <a class="navbar-brand fw-bold" href="/">
+        <a
+            class="navbar-brand fw-bold"
+            href="/">
             CampusFin
         </a>
 
@@ -35,6 +40,7 @@
 
         </button>
 
+
         <div
             class="collapse navbar-collapse"
             id="navbarMenu">
@@ -42,45 +48,93 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/">
+
+                    <a
+                        class="nav-link"
+                        href="/">
+
                         Home
+
                     </a>
+
                 </li>
 
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/college-cost">
+
+                    <a
+                        class="nav-link"
+                        href="/college-cost">
+
                         College Cost
+
                     </a>
+
                 </li>
 
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/monthly-budget">
+
+                    <a
+                        class="nav-link"
+                        href="/monthly-budget">
+
                         Monthly Budget
+
                     </a>
+
                 </li>
 
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/financial-readiness">
+
+                    <a
+                        class="nav-link"
+                        href="/financial-readiness">
+
                         Financial Readiness
+
                     </a>
+
                 </li>
 
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/college-comparison">
+
+                    <a
+                        class="nav-link"
+                        href="/college-comparison">
+
                         College Comparison
+
                     </a>
+
                 </li>
 
+
                 <li class="nav-item">
-                    <a class="nav-link active" href="/what-if">
+
+                    <a
+                        class="nav-link active"
+                        href="/what-if">
+
                         What-If
+
                     </a>
+
                 </li>
 
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/ai-financial-analysis">
+
+                    <a
+                        class="nav-link"
+                        href="/ai-financial-analysis">
+
                         AI Analysis
+
                     </a>
+
                 </li>
 
             </ul>
@@ -94,6 +148,11 @@
 
 <main class="container py-5">
 
+
+    <!-- ===================================================== -->
+    <!-- Page Heading -->
+    <!-- ===================================================== -->
+
     <div class="mb-4">
 
         <p class="text-primary fw-semibold mb-2">
@@ -105,15 +164,19 @@
         </h1>
 
         <p class="text-secondary">
+
             Change college costs, scholarships, family support,
             student income, and monthly budget assumptions to see
             how affordability changes.
+
         </p>
 
     </div>
 
 
+    <!-- ===================================================== -->
     <!-- Input Form -->
+    <!-- ===================================================== -->
 
     <div class="card shadow-sm border-0 mb-5">
 
@@ -123,10 +186,14 @@
                 Scenario Assumptions
             </h2>
 
+
             <form
                 th:action="@{/what-if}"
                 th:object="${whatIfScenario}"
                 method="post">
+
+
+                <!-- Validation Message -->
 
                 <div
                     class="alert alert-danger"
@@ -139,9 +206,23 @@
                 </div>
 
 
+                <!-- Blank Field Notice -->
+
+                <div class="alert alert-light border small text-secondary">
+
+                    Blank numeric fields are treated as $0.
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- College Costs -->
+                <!-- ================================================= -->
+
                 <h3 class="h5 mb-3">
                     College Costs
                 </h3>
+
 
                 <div class="row g-3 mb-4">
 
@@ -166,7 +247,7 @@
                             th:field="*{tuition}"
                             min="0"
                             step="0.01"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -200,7 +281,7 @@
                             th:field="*{housing}"
                             min="0"
                             step="0.01"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -234,7 +315,7 @@
                             th:field="*{food}"
                             min="0"
                             step="0.01"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -268,7 +349,7 @@
                             th:field="*{books}"
                             min="0"
                             step="0.01"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -302,7 +383,7 @@
                             th:field="*{transportation}"
                             min="0"
                             step="0.01"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -318,9 +399,14 @@
                 </div>
 
 
+                <!-- ================================================= -->
+                <!-- Funding -->
+                <!-- ================================================= -->
+
                 <h3 class="h5 mb-3">
                     Funding
                 </h3>
+
 
                 <div class="row g-3 mb-4">
 
@@ -345,7 +431,7 @@
                             th:field="*{scholarship}"
                             min="0"
                             step="0.01"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -379,7 +465,7 @@
                             th:field="*{familyContribution}"
                             min="0"
                             step="0.01"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -413,7 +499,7 @@
                             th:field="*{studentIncome}"
                             min="0"
                             step="0.01"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -429,9 +515,14 @@
                 </div>
 
 
+                <!-- ================================================= -->
+                <!-- Monthly Budget -->
+                <!-- ================================================= -->
+
                 <h3 class="h5 mb-3">
                     Monthly Budget
                 </h3>
+
 
                 <div class="row g-3">
 
@@ -456,7 +547,7 @@
                             th:field="*{monthlyIncome}"
                             min="0"
                             step="0.01"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -490,7 +581,7 @@
                             th:field="*{monthlyExpenses}"
                             min="0"
                             step="0.01"
-                            required>
+                            placeholder="Enter amount">
 
                         <div
                             class="invalid-feedback"
@@ -505,6 +596,10 @@
 
                 </div>
 
+
+                <!-- ================================================= -->
+                <!-- Submit -->
+                <!-- ================================================= -->
 
                 <div class="mt-4">
 
@@ -525,9 +620,12 @@
     </div>
 
 
+    <!-- ===================================================== -->
     <!-- Results -->
+    <!-- ===================================================== -->
 
     <div th:if="${resultsAvailable}">
+
 
         <div class="mb-3">
 
@@ -536,15 +634,23 @@
             </h2>
 
             <p class="text-secondary">
+
                 These results show how the assumptions above affect
                 estimated affordability.
+
             </p>
 
         </div>
 
 
+        <!-- ================================================= -->
+        <!-- College Results -->
+        <!-- ================================================= -->
+
         <div class="row g-4 mb-4">
 
+
+            <!-- Annual Cost -->
 
             <div class="col-lg-3 col-md-6">
 
@@ -571,6 +677,8 @@
             </div>
 
 
+            <!-- Four-Year Cost -->
+
             <div class="col-lg-3 col-md-6">
 
                 <div class="card shadow-sm border-0 h-100">
@@ -595,6 +703,8 @@
 
             </div>
 
+
+            <!-- Four-Year Funding Gap -->
 
             <div class="col-lg-3 col-md-6">
 
@@ -621,6 +731,8 @@
             </div>
 
 
+            <!-- Scholarship Coverage -->
+
             <div class="col-lg-3 col-md-6">
 
                 <div class="card shadow-sm border-0 h-100">
@@ -634,8 +746,14 @@
                         <h3 class="h4 mb-0">
 
                             <span
-                                th:text="${#numbers.formatDecimal(scholarshipCoverage, 1, 1)}">
+                                th:text="${#numbers.formatDecimal(
+                                    scholarshipCoverage,
+                                    1,
+                                    1
+                                )}">
+
                                 0.0
+
                             </span>%
 
                         </h3>
@@ -649,8 +767,14 @@
         </div>
 
 
+        <!-- ================================================= -->
+        <!-- Monthly / Risk Results -->
+        <!-- ================================================= -->
+
         <div class="row g-4 mb-4">
 
+
+            <!-- Monthly Balance -->
 
             <div class="col-md-4">
 
@@ -677,6 +801,8 @@
             </div>
 
 
+            <!-- Savings Rate -->
+
             <div class="col-md-4">
 
                 <div class="card shadow-sm border-0 h-100">
@@ -690,8 +816,14 @@
                         <h3 class="h4 mb-0">
 
                             <span
-                                th:text="${#numbers.formatDecimal(savingsRate, 1, 1)}">
+                                th:text="${#numbers.formatDecimal(
+                                    savingsRate,
+                                    1,
+                                    1
+                                )}">
+
                                 0.0
+
                             </span>%
 
                         </h3>
@@ -703,6 +835,8 @@
             </div>
 
 
+            <!-- Scenario Risk -->
+
             <div class="col-md-4">
 
                 <div class="card shadow-sm border-0 h-100">
@@ -713,6 +847,7 @@
                             Scenario Risk
                         </p>
 
+
                         <div th:if="${scenarioRisk == 'Low'}">
 
                             <span class="badge bg-success fs-5">
@@ -721,6 +856,7 @@
 
                         </div>
 
+
                         <div th:if="${scenarioRisk == 'Moderate'}">
 
                             <span class="badge bg-warning text-dark fs-5">
@@ -728,6 +864,7 @@
                             </span>
 
                         </div>
+
 
                         <div th:if="${scenarioRisk == 'High'}">
 
@@ -746,7 +883,9 @@
         </div>
 
 
+        <!-- ================================================= -->
         <!-- Recommendation -->
+        <!-- ================================================= -->
 
         <div class="card shadow-sm border-0 mb-4">
 
@@ -759,7 +898,9 @@
                 <div class="alert alert-primary mb-0 mt-3">
 
                     <span th:text="${recommendation}">
+
                         Recommendation
+
                     </span>
 
                 </div>
@@ -769,7 +910,9 @@
         </div>
 
 
+        <!-- ================================================= -->
         <!-- Scenario Ideas -->
+        <!-- ================================================= -->
 
         <div class="card shadow-sm border-0 mb-4">
 
@@ -780,12 +923,17 @@
                 </h2>
 
                 <p class="text-secondary">
+
                     Change one assumption at a time to understand
                     which factors have the biggest effect on affordability.
+
                 </p>
+
 
                 <div class="row g-3">
 
+
+                    <!-- More Scholarship -->
 
                     <div class="col-md-4">
 
@@ -796,15 +944,19 @@
                             </strong>
 
                             <p class="small text-muted mb-0 mt-2">
+
                                 Increase scholarship funding by
                                 $5,000 or $10,000 and compare the
                                 four-year funding gap.
+
                             </p>
 
                         </div>
 
                     </div>
 
+
+                    <!-- Lower Housing -->
 
                     <div class="col-md-4">
 
@@ -815,14 +967,18 @@
                             </strong>
 
                             <p class="small text-muted mb-0 mt-2">
+
                                 Test commuting, living at home,
                                 or lower-cost housing.
+
                             </p>
 
                         </div>
 
                     </div>
 
+
+                    <!-- Higher Monthly Income -->
 
                     <div class="col-md-4">
 
@@ -833,8 +989,10 @@
                             </strong>
 
                             <p class="small text-muted mb-0 mt-2">
+
                                 Test whether part-time work or other
                                 income improves monthly cash flow.
+
                             </p>
 
                         </div>
@@ -850,23 +1008,33 @@
     </div>
 
 
+    <!-- ===================================================== -->
     <!-- Notice -->
+    <!-- ===================================================== -->
 
     <div class="alert alert-secondary">
 
-        <strong>Scenario Planning Only:</strong>
+        <strong>
+            Scenario Planning Only:
+        </strong>
 
         <div class="mt-2">
+
             What-If results are estimates based on the values entered.
             They are intended for educational planning and should not
             be treated as financial-aid offers, lending decisions,
             or professional financial advice.
+
         </div>
 
     </div>
 
 </main>
 
+
+<!-- ========================================================= -->
+<!-- Footer -->
+<!-- ========================================================= -->
 
 <footer class="border-top bg-white py-4 mt-5">
 
@@ -877,9 +1045,11 @@
         </p>
 
         <p class="mb-0 text-muted small">
+
             CampusFin provides educational estimates and experimental
             decision-support analysis and does not provide financial,
             legal, investment, lending, or tax advice.
+
         </p>
 
     </div>

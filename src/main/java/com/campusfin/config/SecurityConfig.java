@@ -48,12 +48,18 @@ public class SecurityConfig {
             throws Exception {
 
         http
+
                 .authenticationProvider(
                         authenticationProvider
                 )
 
                 .authorizeHttpRequests(auth -> auth
 
+                        /*
+                         * CampusFin can be used without an account.
+                         *
+                         * Signing up is optional.
+                         */
                         .requestMatchers(
                                 "/",
                                 "/login",
@@ -61,12 +67,24 @@ public class SecurityConfig {
                                 "/privacy",
                                 "/terms",
                                 "/error",
+
+                                "/college-cost",
+                                "/monthly-budget",
+                                "/financial-readiness",
+                                "/college-comparison/**",
+                                "/what-if",
+                                "/ai-financial-analysis",
+
                                 "/css/**",
                                 "/js/**",
                                 "/images/**"
                         )
                         .permitAll()
 
+                        /*
+                         * Any future route not listed above
+                         * remains protected by default.
+                         */
                         .anyRequest()
                         .authenticated()
                 )
@@ -96,7 +114,7 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
 
                         .logoutSuccessUrl(
-                                "/login?logout"
+                                "/?logout"
                         )
 
                         .permitAll()

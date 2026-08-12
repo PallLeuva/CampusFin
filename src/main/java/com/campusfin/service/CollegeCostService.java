@@ -8,11 +8,11 @@ public class CollegeCostService {
 
     public double calculateAnnualTotal(CollegeCostInput input) {
 
-        return input.getTuition()
-                + input.getHousing()
-                + input.getFood()
-                + input.getBooks()
-                + input.getTransportation();
+        return valueOrZero(input.getTuition())
+                + valueOrZero(input.getHousing())
+                + valueOrZero(input.getFood())
+                + valueOrZero(input.getBooks())
+                + valueOrZero(input.getTransportation());
     }
 
     public double calculateAnnualFundingGap(CollegeCostInput input) {
@@ -21,13 +21,14 @@ public class CollegeCostService {
                 calculateAnnualTotal(input);
 
         double availableFunding =
-                input.getScholarship()
-                        + input.getFamilyContribution()
-                        + input.getStudentIncome();
+                valueOrZero(input.getScholarship())
+                        + valueOrZero(input.getFamilyContribution())
+                        + valueOrZero(input.getStudentIncome());
 
         return Math.max(
                 totalCost - availableFunding,
-                0);
+                0
+        );
     }
 
     public double calculateFourYearCost(CollegeCostInput input) {
@@ -49,8 +50,13 @@ public class CollegeCostService {
             return 0;
         }
 
-        return input.getScholarship()
+        return valueOrZero(input.getScholarship())
                 / totalCost
                 * 100;
     }
-}
+
+    private double valueOrZero(Double value) {
+
+        return value == null ? 0.0 : value;
+    }
+}   
