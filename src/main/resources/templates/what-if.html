@@ -15,6 +15,7 @@
 <body class="bg-light">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
     <div class="container">
 
         <a class="navbar-brand fw-bold" href="/">
@@ -87,6 +88,7 @@
         </div>
 
     </div>
+
 </nav>
 
 
@@ -126,11 +128,25 @@
                 th:object="${whatIfScenario}"
                 method="post">
 
+                <div
+                    class="alert alert-danger"
+                    th:if="${#fields.hasAnyErrors()}">
+
+                    <strong>
+                        Please correct the highlighted fields.
+                    </strong>
+
+                </div>
+
+
                 <h3 class="h5 mb-3">
                     College Costs
                 </h3>
 
                 <div class="row g-3 mb-4">
+
+
+                    <!-- Tuition -->
 
                     <div class="col-md-4">
 
@@ -146,13 +162,25 @@
                             type="number"
                             id="tuition"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('tuition')} ? 'is-invalid'"
                             th:field="*{tuition}"
                             min="0"
                             step="0.01"
                             required>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('tuition')}"
+                            th:errors="*{tuition}">
+
+                            Tuition error
+
+                        </div>
+
                     </div>
 
+
+                    <!-- Housing -->
 
                     <div class="col-md-4">
 
@@ -168,13 +196,25 @@
                             type="number"
                             id="housing"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('housing')} ? 'is-invalid'"
                             th:field="*{housing}"
                             min="0"
                             step="0.01"
                             required>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('housing')}"
+                            th:errors="*{housing}">
+
+                            Housing error
+
+                        </div>
+
                     </div>
 
+
+                    <!-- Food -->
 
                     <div class="col-md-4">
 
@@ -190,13 +230,25 @@
                             type="number"
                             id="food"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('food')} ? 'is-invalid'"
                             th:field="*{food}"
                             min="0"
                             step="0.01"
                             required>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('food')}"
+                            th:errors="*{food}">
+
+                            Food error
+
+                        </div>
+
                     </div>
 
+
+                    <!-- Books -->
 
                     <div class="col-md-6">
 
@@ -212,13 +264,25 @@
                             type="number"
                             id="books"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('books')} ? 'is-invalid'"
                             th:field="*{books}"
                             min="0"
                             step="0.01"
                             required>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('books')}"
+                            th:errors="*{books}">
+
+                            Books error
+
+                        </div>
+
                     </div>
 
+
+                    <!-- Transportation -->
 
                     <div class="col-md-6">
 
@@ -234,10 +298,20 @@
                             type="number"
                             id="transportation"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('transportation')} ? 'is-invalid'"
                             th:field="*{transportation}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('transportation')}"
+                            th:errors="*{transportation}">
+
+                            Transportation error
+
+                        </div>
 
                     </div>
 
@@ -249,6 +323,9 @@
                 </h3>
 
                 <div class="row g-3 mb-4">
+
+
+                    <!-- Scholarship -->
 
                     <div class="col-md-4">
 
@@ -264,13 +341,25 @@
                             type="number"
                             id="scholarship"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('scholarship')} ? 'is-invalid'"
                             th:field="*{scholarship}"
                             min="0"
                             step="0.01"
                             required>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('scholarship')}"
+                            th:errors="*{scholarship}">
+
+                            Scholarship error
+
+                        </div>
+
                     </div>
 
+
+                    <!-- Family Contribution -->
 
                     <div class="col-md-4">
 
@@ -286,13 +375,25 @@
                             type="number"
                             id="familyContribution"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('familyContribution')} ? 'is-invalid'"
                             th:field="*{familyContribution}"
                             min="0"
                             step="0.01"
                             required>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('familyContribution')}"
+                            th:errors="*{familyContribution}">
+
+                            Family contribution error
+
+                        </div>
+
                     </div>
 
+
+                    <!-- Student Income -->
 
                     <div class="col-md-4">
 
@@ -308,10 +409,20 @@
                             type="number"
                             id="studentIncome"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('studentIncome')} ? 'is-invalid'"
                             th:field="*{studentIncome}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('studentIncome')}"
+                            th:errors="*{studentIncome}">
+
+                            Student income error
+
+                        </div>
 
                     </div>
 
@@ -323,6 +434,9 @@
                 </h3>
 
                 <div class="row g-3">
+
+
+                    <!-- Monthly Income -->
 
                     <div class="col-md-6">
 
@@ -338,13 +452,25 @@
                             type="number"
                             id="monthlyIncome"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('monthlyIncome')} ? 'is-invalid'"
                             th:field="*{monthlyIncome}"
                             min="0"
                             step="0.01"
                             required>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('monthlyIncome')}"
+                            th:errors="*{monthlyIncome}">
+
+                            Monthly income error
+
+                        </div>
+
                     </div>
 
+
+                    <!-- Monthly Expenses -->
 
                     <div class="col-md-6">
 
@@ -360,10 +486,20 @@
                             type="number"
                             id="monthlyExpenses"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('monthlyExpenses')} ? 'is-invalid'"
                             th:field="*{monthlyExpenses}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('monthlyExpenses')}"
+                            th:errors="*{monthlyExpenses}">
+
+                            Monthly expenses error
+
+                        </div>
 
                     </div>
 
@@ -410,8 +546,6 @@
         <div class="row g-4 mb-4">
 
 
-            <!-- Annual Cost -->
-
             <div class="col-lg-3 col-md-6">
 
                 <div class="card shadow-sm border-0 h-100">
@@ -436,8 +570,6 @@
 
             </div>
 
-
-            <!-- Four-Year Cost -->
 
             <div class="col-lg-3 col-md-6">
 
@@ -464,8 +596,6 @@
             </div>
 
 
-            <!-- Funding Gap -->
-
             <div class="col-lg-3 col-md-6">
 
                 <div class="card shadow-sm border-0 h-100">
@@ -490,8 +620,6 @@
 
             </div>
 
-
-            <!-- Scholarship Coverage -->
 
             <div class="col-lg-3 col-md-6">
 
@@ -524,8 +652,6 @@
         <div class="row g-4 mb-4">
 
 
-            <!-- Monthly Balance -->
-
             <div class="col-md-4">
 
                 <div class="card shadow-sm border-0 h-100">
@@ -550,8 +676,6 @@
 
             </div>
 
-
-            <!-- Savings Rate -->
 
             <div class="col-md-4">
 
@@ -578,8 +702,6 @@
 
             </div>
 
-
-            <!-- Risk -->
 
             <div class="col-md-4">
 
@@ -663,6 +785,7 @@
                 </p>
 
                 <div class="row g-3">
+
 
                     <div class="col-md-4">
 

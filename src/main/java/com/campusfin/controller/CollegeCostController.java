@@ -5,8 +5,10 @@ import com.campusfin.model.StudentFinancialProfile;
 import com.campusfin.service.CollegeCostService;
 import com.campusfin.service.StudentFinancialProfileService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,24 +17,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CollegeCostController {
 
     private final CollegeCostService collegeCostService;
-
-    private final StudentFinancialProfileService
-            studentFinancialProfileService;
+    private final StudentFinancialProfileService studentFinancialProfileService;
 
     public CollegeCostController(
             CollegeCostService collegeCostService,
             StudentFinancialProfileService studentFinancialProfileService) {
 
-        this.collegeCostService =
-                collegeCostService;
-
-        this.studentFinancialProfileService =
-                studentFinancialProfileService;
+        this.collegeCostService = collegeCostService;
+        this.studentFinancialProfileService = studentFinancialProfileService;
     }
 
     @GetMapping("/college-cost")
-    public String showCollegeCostForm(
-            Model model) {
+    public String showCollegeCostForm(Model model) {
 
         model.addAttribute(
                 "collegeCostInput",
@@ -43,38 +39,39 @@ public class CollegeCostController {
 
     @PostMapping("/college-cost")
     public String calculateCollegeCost(
-            @ModelAttribute CollegeCostInput collegeCostInput,
+            @Valid @ModelAttribute CollegeCostInput collegeCostInput,
+            BindingResult bindingResult,
             HttpSession session,
             Model model) {
 
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute(
+                    "resultsAvailable",
+                    false);
+
+            return "college-cost";
+        }
+
         double annualCollegeCost =
-                collegeCostService
-                        .calculateAnnualTotal(
-                                collegeCostInput);
+                collegeCostService.calculateAnnualTotal(
+                        collegeCostInput);
 
         double annualFundingGap =
-                collegeCostService
-                        .calculateAnnualFundingGap(
-                                collegeCostInput);
+                collegeCostService.calculateAnnualFundingGap(
+                        collegeCostInput);
 
         double fourYearCollegeCost =
-                collegeCostService
-                        .calculateFourYearCost(
-                                collegeCostInput);
+                collegeCostService.calculateFourYearCost(
+                        collegeCostInput);
 
         double fourYearFundingGap =
-                collegeCostService
-                        .calculateFourYearFundingGap(
-                                collegeCostInput);
+                collegeCostService.calculateFourYearFundingGap(
+                        collegeCostInput);
 
         double scholarshipCoverage =
-                collegeCostService
-                        .calculateScholarshipCoverage(
-                                collegeCostInput);
-
-        model.addAttribute(
-                "collegeCostInput",
-                collegeCostInput);
+                collegeCostService.calculateScholarshipCoverage(
+                        collegeCostInput);
 
         model.addAttribute(
                 "annualTotal",

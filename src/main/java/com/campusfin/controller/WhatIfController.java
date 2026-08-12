@@ -4,9 +4,13 @@ import com.campusfin.model.StudentFinancialProfile;
 import com.campusfin.model.WhatIfScenario;
 import com.campusfin.service.StudentFinancialProfileService;
 import com.campusfin.service.WhatIfService;
+
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,10 +43,6 @@ public class WhatIfController {
 
         if (profile != null) {
 
-            /*
-             * We can prefill the monthly budget values
-             * from the saved CampusFin profile.
-             */
             scenario.setMonthlyIncome(
                     profile.getMonthlyIncome()
             );
@@ -51,22 +51,9 @@ public class WhatIfController {
                     profile.getMonthlyExpenses()
             );
 
-            /*
-             * We cannot safely reconstruct the original
-             * tuition/housing/food split from the combined
-             * annual total, so those fields remain editable.
-             */
-            scenario.setScholarship(
-                    0
-            );
-
-            scenario.setFamilyContribution(
-                    0
-            );
-
-            scenario.setStudentIncome(
-                    0
-            );
+            scenario.setScholarship(0);
+            scenario.setFamilyContribution(0);
+            scenario.setStudentIncome(0);
         }
 
         model.addAttribute(
@@ -84,8 +71,19 @@ public class WhatIfController {
 
     @PostMapping("/what-if")
     public String calculateScenario(
-            @ModelAttribute WhatIfScenario whatIfScenario,
+            @Valid @ModelAttribute WhatIfScenario whatIfScenario,
+            BindingResult bindingResult,
             Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute(
+                    "resultsAvailable",
+                    false
+            );
+
+            return "what-if";
+        }
 
         double annualCost =
                 whatIfService.calculateAnnualCost(
@@ -131,11 +129,6 @@ public class WhatIfController {
                 whatIfService.generateRecommendation(
                         whatIfScenario
                 );
-
-        model.addAttribute(
-                "whatIfScenario",
-                whatIfScenario
-        );
 
         model.addAttribute(
                 "annualCost",

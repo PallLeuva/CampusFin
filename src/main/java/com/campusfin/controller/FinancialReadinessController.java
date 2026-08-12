@@ -7,9 +7,11 @@ import com.campusfin.service.FinancialReadinessService;
 import com.campusfin.service.StudentFinancialProfileService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -46,7 +48,8 @@ public class FinancialReadinessController {
 
     @PostMapping("/financial-readiness")
     public String calculateReadiness(
-            FinancialReadinessInput financialReadinessInput,
+            @Valid FinancialReadinessInput financialReadinessInput,
+            BindingResult bindingResult,
             Model model,
             HttpSession session) {
 
@@ -54,6 +57,21 @@ public class FinancialReadinessController {
                 "financialReadinessInput",
                 financialReadinessInput
         );
+
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute(
+                    "resultsAvailable",
+                    false
+            );
+
+            model.addAttribute(
+                    "aiAvailable",
+                    false
+            );
+
+            return "financial-readiness";
+        }
 
         double percentageScore =
                 financialReadinessService.calculatePercentageScore(
@@ -94,6 +112,11 @@ public class FinancialReadinessController {
                 financialReadinessService.getRecommendation(
                         financialReadinessInput
                 )
+        );
+
+        model.addAttribute(
+                "resultsAvailable",
+                true
         );
 
 
@@ -265,7 +288,6 @@ public class FinancialReadinessController {
                     "The AI prediction service is currently unavailable."
             );
         }
-
 
         return "financial-readiness";
     }

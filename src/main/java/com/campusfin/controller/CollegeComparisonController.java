@@ -2,8 +2,10 @@ package com.campusfin.controller;
 
 import com.campusfin.model.CollegeOption;
 import com.campusfin.repository.CollegeOptionRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +40,16 @@ public class CollegeComparisonController {
 
     @PostMapping("/college-comparison/add")
     public String addCollege(
-            @ModelAttribute CollegeOption collegeOption) {
+            @Valid @ModelAttribute CollegeOption collegeOption,
+            BindingResult bindingResult,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            loadComparisonData(model);
+
+            return "college-comparison";
+        }
 
         double annualCost =
                 collegeOption.getTuition()
@@ -105,9 +116,12 @@ public class CollegeComparisonController {
     public String deleteCollege(
             @RequestParam Long id) {
 
-        collegeOptionRepository.deleteById(
-                id
-        );
+        if (collegeOptionRepository.existsById(id)) {
+
+            collegeOptionRepository.deleteById(
+                    id
+            );
+        }
 
         return "redirect:/college-comparison";
     }
@@ -120,7 +134,7 @@ public class CollegeComparisonController {
 
         colleges.sort(
                 Comparator.comparingDouble(
-                        CollegeOption::getFourYearFundingGap
+                        college -> college.getFourYearFundingGap()
                 )
         );
 
@@ -140,7 +154,7 @@ public class CollegeComparisonController {
                     colleges.stream()
                             .min(
                                     Comparator.comparingDouble(
-                                            CollegeOption::getFourYearCost
+                                            college -> college.getFourYearCost()
                                     )
                             )
                             .orElse(null);
@@ -149,7 +163,7 @@ public class CollegeComparisonController {
                     colleges.stream()
                             .min(
                                     Comparator.comparingDouble(
-                                            CollegeOption::getFourYearFundingGap
+                                            college -> college.getFourYearFundingGap()
                                     )
                             )
                             .orElse(null);
@@ -158,7 +172,7 @@ public class CollegeComparisonController {
                     colleges.stream()
                             .max(
                                     Comparator.comparingDouble(
-                                            CollegeOption::getScholarshipCoverage
+                                            college -> college.getScholarshipCoverage()
                                     )
                             )
                             .orElse(null);

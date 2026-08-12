@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
 
@@ -17,29 +18,82 @@
 <body class="bg-light">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
     <div class="container">
 
         <a class="navbar-brand fw-bold" href="/">
             CampusFin
         </a>
 
-        <div class="navbar-nav ms-auto">
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+            aria-controls="navbarMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
-            <a class="nav-link" href="/">
-                Home
-            </a>
+            <span class="navbar-toggler-icon"></span>
 
-            <a class="nav-link" href="/college-cost">
-                College Cost
-            </a>
+        </button>
 
-            <a class="nav-link active" href="/monthly-budget">
-                Monthly Budget
-            </a>
+        <div
+            class="collapse navbar-collapse"
+            id="navbarMenu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/college-cost">
+                        College Cost
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/monthly-budget">
+                        Monthly Budget
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/financial-readiness">
+                        Financial Readiness
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/college-comparison">
+                        College Comparison
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/what-if">
+                        What-If
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/ai-financial-analysis">
+                        AI Analysis
+                    </a>
+                </li>
+
+            </ul>
 
         </div>
+
     </div>
+
 </nav>
+
 
 <main class="container py-5">
 
@@ -56,7 +110,8 @@
 
     </div>
 
-    <div class="row">
+
+    <div class="row g-4">
 
         <div class="col-lg-7">
 
@@ -68,171 +123,360 @@
 
                 <div class="card-body p-4">
 
+                    <div
+                        class="alert alert-danger"
+                        th:if="${#fields.hasAnyErrors()}">
+
+                        <strong>
+                            Please correct the highlighted fields.
+                        </strong>
+
+                    </div>
+
+
                     <h2 class="h5 mb-3">
                         Monthly Income
                     </h2>
 
+
+                    <!-- Monthly Income -->
+
                     <div class="mb-4">
 
-                        <label class="form-label">
-                            Total monthly income
+                        <label
+                            for="monthlyIncome"
+                            class="form-label">
+
+                            Total Monthly Income
+
                         </label>
 
                         <input
                             type="number"
+                            id="monthlyIncome"
                             min="0"
                             step="0.01"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('monthlyIncome')} ? 'is-invalid'"
                             th:field="*{monthlyIncome}"
                             required>
 
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('monthlyIncome')}"
+                            th:errors="*{monthlyIncome}">
+
+                            Monthly income error
+
+                        </div>
+
                     </div>
+
 
                     <h2 class="h5 mb-3">
                         Monthly Expenses
                     </h2>
 
+
                     <div class="row g-3">
 
+
+                        <!-- Housing -->
+
                         <div class="col-md-6">
 
-                            <label class="form-label">
+                            <label
+                                for="housing"
+                                class="form-label">
+
                                 Housing
+
                             </label>
 
                             <input
                                 type="number"
+                                id="housing"
                                 min="0"
                                 step="0.01"
                                 class="form-control"
-                                th:field="*{housing}">
+                                th:classappend="${#fields.hasErrors('housing')} ? 'is-invalid'"
+                                th:field="*{housing}"
+                                required>
+
+                            <div
+                                class="invalid-feedback"
+                                th:if="${#fields.hasErrors('housing')}"
+                                th:errors="*{housing}">
+
+                                Housing expense error
+
+                            </div>
 
                         </div>
 
+
+                        <!-- Food -->
+
                         <div class="col-md-6">
 
-                            <label class="form-label">
+                            <label
+                                for="food"
+                                class="form-label">
+
                                 Food
+
                             </label>
 
                             <input
                                 type="number"
+                                id="food"
                                 min="0"
                                 step="0.01"
                                 class="form-control"
-                                th:field="*{food}">
+                                th:classappend="${#fields.hasErrors('food')} ? 'is-invalid'"
+                                th:field="*{food}"
+                                required>
+
+                            <div
+                                class="invalid-feedback"
+                                th:if="${#fields.hasErrors('food')}"
+                                th:errors="*{food}">
+
+                                Food expense error
+
+                            </div>
 
                         </div>
 
+
+                        <!-- Transportation -->
+
                         <div class="col-md-6">
 
-                            <label class="form-label">
+                            <label
+                                for="transportation"
+                                class="form-label">
+
                                 Transportation
+
                             </label>
 
                             <input
                                 type="number"
+                                id="transportation"
                                 min="0"
                                 step="0.01"
                                 class="form-control"
-                                th:field="*{transportation}">
+                                th:classappend="${#fields.hasErrors('transportation')} ? 'is-invalid'"
+                                th:field="*{transportation}"
+                                required>
+
+                            <div
+                                class="invalid-feedback"
+                                th:if="${#fields.hasErrors('transportation')}"
+                                th:errors="*{transportation}">
+
+                                Transportation expense error
+
+                            </div>
 
                         </div>
 
+
+                        <!-- Books -->
+
                         <div class="col-md-6">
 
-                            <label class="form-label">
-                                Books and supplies
+                            <label
+                                for="books"
+                                class="form-label">
+
+                                Books and Supplies
+
                             </label>
 
                             <input
                                 type="number"
+                                id="books"
                                 min="0"
                                 step="0.01"
                                 class="form-control"
-                                th:field="*{books}">
+                                th:classappend="${#fields.hasErrors('books')} ? 'is-invalid'"
+                                th:field="*{books}"
+                                required>
+
+                            <div
+                                class="invalid-feedback"
+                                th:if="${#fields.hasErrors('books')}"
+                                th:errors="*{books}">
+
+                                Books expense error
+
+                            </div>
 
                         </div>
 
+
+                        <!-- Entertainment -->
+
                         <div class="col-md-6">
 
-                            <label class="form-label">
+                            <label
+                                for="entertainment"
+                                class="form-label">
+
                                 Entertainment
+
                             </label>
 
                             <input
                                 type="number"
+                                id="entertainment"
                                 min="0"
                                 step="0.01"
                                 class="form-control"
-                                th:field="*{entertainment}">
+                                th:classappend="${#fields.hasErrors('entertainment')} ? 'is-invalid'"
+                                th:field="*{entertainment}"
+                                required>
+
+                            <div
+                                class="invalid-feedback"
+                                th:if="${#fields.hasErrors('entertainment')}"
+                                th:errors="*{entertainment}">
+
+                                Entertainment expense error
+
+                            </div>
 
                         </div>
 
+
+                        <!-- Subscriptions -->
+
                         <div class="col-md-6">
 
-                            <label class="form-label">
+                            <label
+                                for="subscriptions"
+                                class="form-label">
+
                                 Subscriptions
+
                             </label>
 
                             <input
                                 type="number"
+                                id="subscriptions"
                                 min="0"
                                 step="0.01"
                                 class="form-control"
-                                th:field="*{subscriptions}">
+                                th:classappend="${#fields.hasErrors('subscriptions')} ? 'is-invalid'"
+                                th:field="*{subscriptions}"
+                                required>
+
+                            <div
+                                class="invalid-feedback"
+                                th:if="${#fields.hasErrors('subscriptions')}"
+                                th:errors="*{subscriptions}">
+
+                                Subscription expense error
+
+                            </div>
 
                         </div>
 
+
+                        <!-- Other Expenses -->
+
                         <div class="col-md-6">
 
-                            <label class="form-label">
-                                Other expenses
+                            <label
+                                for="otherExpenses"
+                                class="form-label">
+
+                                Other Expenses
+
                             </label>
 
                             <input
                                 type="number"
+                                id="otherExpenses"
                                 min="0"
                                 step="0.01"
                                 class="form-control"
-                                th:field="*{otherExpenses}">
+                                th:classappend="${#fields.hasErrors('otherExpenses')} ? 'is-invalid'"
+                                th:field="*{otherExpenses}"
+                                required>
+
+                            <div
+                                class="invalid-feedback"
+                                th:if="${#fields.hasErrors('otherExpenses')}"
+                                th:errors="*{otherExpenses}">
+
+                                Other expense error
+
+                            </div>
 
                         </div>
 
+
+                        <!-- Emergency Savings -->
+
                         <div class="col-md-6">
 
-                            <label class="form-label">
-                                Current emergency savings
+                            <label
+                                for="emergencySavings"
+                                class="form-label">
+
+                                Current Emergency Savings
+
                             </label>
 
                             <input
                                 type="number"
+                                id="emergencySavings"
                                 min="0"
                                 step="0.01"
                                 class="form-control"
-                                th:field="*{emergencySavings}">
+                                th:classappend="${#fields.hasErrors('emergencySavings')} ? 'is-invalid'"
+                                th:field="*{emergencySavings}"
+                                required>
+
+                            <div
+                                class="invalid-feedback"
+                                th:if="${#fields.hasErrors('emergencySavings')}"
+                                th:errors="*{emergencySavings}">
+
+                                Emergency savings error
+
+                            </div>
 
                         </div>
 
                     </div>
+
 
                     <button
                         type="submit"
                         class="btn btn-primary mt-4">
 
                         Analyze Budget
+
                     </button>
 
                 </div>
+
             </form>
 
         </div>
 
-        <div class="col-lg-5 mt-4 mt-lg-0">
+
+        <!-- Results -->
+
+        <div class="col-lg-5">
 
             <div
                 class="card shadow-sm border-0"
-                th:if="${totalExpenses != null}">
+                th:if="${resultsAvailable}">
 
                 <div class="card-body p-4">
 
@@ -241,54 +485,105 @@
                     </h2>
 
                     <p>
-                        <strong>Monthly income:</strong>
+
+                        <strong>
+                            Monthly income:
+                        </strong>
 
                         <span
                             th:text="${#numbers.formatCurrency(monthlyBudgetInput.monthlyIncome)}">
+
+                            $0.00
+
                         </span>
+
                     </p>
 
+
                     <p>
-                        <strong>Total monthly expenses:</strong>
+
+                        <strong>
+                            Total monthly expenses:
+                        </strong>
 
                         <span
                             th:text="${#numbers.formatCurrency(totalExpenses)}">
+
+                            $0.00
+
                         </span>
+
                     </p>
 
+
                     <p>
-                        <strong>Monthly surplus or deficit:</strong>
+
+                        <strong>
+                            Monthly surplus or deficit:
+                        </strong>
 
                         <span
                             th:text="${#numbers.formatCurrency(monthlyBalance)}">
+
+                            $0.00
+
                         </span>
+
                     </p>
 
+
                     <p>
-                        <strong>Estimated savings rate:</strong>
+
+                        <strong>
+                            Estimated savings rate:
+                        </strong>
 
                         <span
                             th:text="${#numbers.formatDecimal(savingsRate, 1, 1)}">
+
+                            0.0
+
                         </span>%
+
                     </p>
 
+
                     <p>
-                        <strong>Emergency-fund coverage:</strong>
+
+                        <strong>
+                            Emergency-fund coverage:
+                        </strong>
 
                         <span
                             th:text="${#numbers.formatDecimal(emergencyCoverage, 1, 1)}">
+
+                            0.0
+
                         </span>
+
                         months
+
                     </p>
+
 
                     <p>
-                        <strong>Largest expense category:</strong>
 
-                        <span th:text="${largestExpenseCategory}">
+                        <strong>
+                            Largest expense category:
+                        </strong>
+
+                        <span
+                            th:text="${largestExpenseCategory}">
+
+                            Housing
+
                         </span>
+
                     </p>
 
+
                     <hr>
+
 
                     <div
                         class="alert"
@@ -297,39 +592,79 @@
                             : 'alert-danger'">
 
                         <span th:text="${budgetStatus}">
+                            Budget status
                         </span>
 
                     </div>
 
-                    <div class="alert alert-info">
+
+                    <div class="alert alert-info mb-0">
 
                         <span th:text="${emergencyFundStatus}">
+                            Emergency-fund status
                         </span>
 
                     </div>
 
                 </div>
+
+            </div>
+
+
+            <div
+                class="alert alert-info"
+                th:if="${resultsAvailable == false}">
+
+                Enter your monthly income, expenses, and emergency savings
+                to evaluate your budget.
+
             </div>
 
         </div>
+
+    </div>
+
+
+    <div class="alert alert-secondary mt-4">
+
+        <strong>Educational Estimate:</strong>
+
+        <div class="mt-2">
+
+            CampusFin budget calculations are planning estimates based on
+            the information entered and should not be treated as professional
+            financial advice.
+
+        </div>
+
     </div>
 
 </main>
 
+
 <footer class="border-top bg-white py-4 mt-5">
 
-    <div class="container text-muted small">
+    <div class="container">
 
-        CampusFin provides educational estimates and does not provide
-        financial, investment, lending, tax, or legal advice.
+        <p class="mb-1 fw-semibold">
+            CampusFin
+        </p>
+
+        <p class="mb-0 text-muted small">
+            CampusFin provides educational estimates and experimental
+            decision-support analysis and does not provide financial,
+            legal, investment, lending, or tax advice.
+        </p>
 
     </div>
 
 </footer>
+
 
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
 
 </body>
+
 </html>

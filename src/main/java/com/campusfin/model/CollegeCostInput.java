@@ -1,14 +1,49 @@
 package com.campusfin.model;
 
+import jakarta.validation.constraints.PositiveOrZero;
+
 public class CollegeCostInput {
+
+    @PositiveOrZero(
+            message = "Tuition cannot be negative."
+    )
     private double tuition;
+
+    @PositiveOrZero(
+            message = "Scholarship amount cannot be negative."
+    )
     private double scholarship;
+
+    @PositiveOrZero(
+            message = "Housing cost cannot be negative."
+    )
     private double housing;
+
+    @PositiveOrZero(
+            message = "Food cost cannot be negative."
+    )
     private double food;
+
+    @PositiveOrZero(
+            message = "Books cost cannot be negative."
+    )
     private double books;
+
+    @PositiveOrZero(
+            message = "Transportation cost cannot be negative."
+    )
     private double transportation;
+
+    @PositiveOrZero(
+            message = "Family contribution cannot be negative."
+    )
     private double familyContribution;
+
+    @PositiveOrZero(
+            message = "Student income cannot be negative."
+    )
     private double studentIncome;
+
 
     public double getTuition() {
         return tuition;
@@ -18,6 +53,7 @@ public class CollegeCostInput {
         this.tuition = tuition;
     }
 
+
     public double getScholarship() {
         return scholarship;
     }
@@ -25,6 +61,7 @@ public class CollegeCostInput {
     public void setScholarship(double scholarship) {
         this.scholarship = scholarship;
     }
+
 
     public double getHousing() {
         return housing;
@@ -34,6 +71,7 @@ public class CollegeCostInput {
         this.housing = housing;
     }
 
+
     public double getFood() {
         return food;
     }
@@ -41,6 +79,7 @@ public class CollegeCostInput {
     public void setFood(double food) {
         this.food = food;
     }
+
 
     public double getBooks() {
         return books;
@@ -50,6 +89,7 @@ public class CollegeCostInput {
         this.books = books;
     }
 
+
     public double getTransportation() {
         return transportation;
     }
@@ -57,6 +97,7 @@ public class CollegeCostInput {
     public void setTransportation(double transportation) {
         this.transportation = transportation;
     }
+
 
     public double getFamilyContribution() {
         return familyContribution;
@@ -66,6 +107,7 @@ public class CollegeCostInput {
         this.familyContribution = familyContribution;
     }
 
+
     public double getStudentIncome() {
         return studentIncome;
     }
@@ -74,4 +116,3 @@ public class CollegeCostInput {
         this.studentIncome = studentIncome;
     }
 }
-

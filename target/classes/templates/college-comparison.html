@@ -80,17 +80,25 @@
 
                 <li class="nav-item">
                     <a
-                        class="nav-link"
-                        href="/ai-financial-analysis">
-                        AI Analysis
+                        class="nav-link active"
+                        href="/college-comparison">
+                        College Comparison
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a
-                        class="nav-link active"
-                        href="/college-comparison">
-                        College Comparison
+                        class="nav-link"
+                        href="/what-if">
+                        What-If
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="/ai-financial-analysis">
+                        AI Analysis
                     </a>
                 </li>
 
@@ -138,6 +146,17 @@
                 th:object="${collegeOption}"
                 method="post">
 
+                <div
+                    class="alert alert-danger"
+                    th:if="${#fields.hasAnyErrors()}">
+
+                    <strong>
+                        Please correct the highlighted fields.
+                    </strong>
+
+                </div>
+
+
                 <div class="row g-3">
 
 
@@ -157,9 +176,19 @@
                             type="text"
                             id="collegeName"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('collegeName')} ? 'is-invalid'"
                             th:field="*{collegeName}"
                             placeholder="Example: University of Illinois Chicago"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('collegeName')}"
+                            th:errors="*{collegeName}">
+
+                            College name error
+
+                        </div>
 
                     </div>
 
@@ -180,10 +209,20 @@
                             type="number"
                             id="tuition"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('tuition')} ? 'is-invalid'"
                             th:field="*{tuition}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('tuition')}"
+                            th:errors="*{tuition}">
+
+                            Tuition error
+
+                        </div>
 
                     </div>
 
@@ -204,10 +243,20 @@
                             type="number"
                             id="housing"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('housing')} ? 'is-invalid'"
                             th:field="*{housing}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('housing')}"
+                            th:errors="*{housing}">
+
+                            Housing error
+
+                        </div>
 
                     </div>
 
@@ -228,10 +277,20 @@
                             type="number"
                             id="food"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('food')} ? 'is-invalid'"
                             th:field="*{food}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('food')}"
+                            th:errors="*{food}">
+
+                            Food error
+
+                        </div>
 
                     </div>
 
@@ -252,10 +311,20 @@
                             type="number"
                             id="books"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('books')} ? 'is-invalid'"
                             th:field="*{books}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('books')}"
+                            th:errors="*{books}">
+
+                            Books error
+
+                        </div>
 
                     </div>
 
@@ -276,10 +345,20 @@
                             type="number"
                             id="transportation"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('transportation')} ? 'is-invalid'"
                             th:field="*{transportation}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('transportation')}"
+                            th:errors="*{transportation}">
+
+                            Transportation error
+
+                        </div>
 
                     </div>
 
@@ -300,10 +379,20 @@
                             type="number"
                             id="scholarship"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('scholarship')} ? 'is-invalid'"
                             th:field="*{scholarship}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('scholarship')}"
+                            th:errors="*{scholarship}">
+
+                            Scholarship error
+
+                        </div>
 
                     </div>
 
@@ -324,10 +413,20 @@
                             type="number"
                             id="familyContribution"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('familyContribution')} ? 'is-invalid'"
                             th:field="*{familyContribution}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('familyContribution')}"
+                            th:errors="*{familyContribution}">
+
+                            Family contribution error
+
+                        </div>
 
                     </div>
 
@@ -348,10 +447,20 @@
                             type="number"
                             id="studentIncome"
                             class="form-control"
+                            th:classappend="${#fields.hasErrors('studentIncome')} ? 'is-invalid'"
                             th:field="*{studentIncome}"
                             min="0"
                             step="0.01"
                             required>
+
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('studentIncome')}"
+                            th:errors="*{studentIncome}">
+
+                            Student income error
+
+                        </div>
 
                     </div>
 
@@ -390,8 +499,7 @@
 
     <!-- College Cards -->
 
-    <div
-        th:if="${!#lists.isEmpty(colleges)}">
+    <div th:if="${!#lists.isEmpty(colleges)}">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
 
@@ -530,10 +638,12 @@
                             <br>
 
                             <strong>
+
                                 <span
                                     th:text="${#numbers.formatDecimal(college.scholarshipCoverage, 1, 1)}">
                                     0.0
                                 </span>%
+
                             </strong>
 
                         </p>

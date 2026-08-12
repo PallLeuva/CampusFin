@@ -4,9 +4,13 @@ import com.campusfin.model.MonthlyBudgetInput;
 import com.campusfin.model.StudentFinancialProfile;
 import com.campusfin.service.MonthlyBudgetService;
 import com.campusfin.service.StudentFinancialProfileService;
+
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +41,19 @@ public class MonthlyBudgetController {
 
     @PostMapping("/monthly-budget")
     public String calculateMonthlyBudget(
-            @ModelAttribute MonthlyBudgetInput monthlyBudgetInput,
+            @Valid @ModelAttribute MonthlyBudgetInput monthlyBudgetInput,
+            BindingResult bindingResult,
             HttpSession session,
             Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute(
+                    "resultsAvailable",
+                    false);
+
+            return "monthly-budget";
+        }
 
         double totalExpenses =
                 monthlyBudgetService.calculateTotalExpenses(
@@ -68,10 +82,6 @@ public class MonthlyBudgetController {
         String emergencyFundStatus =
                 monthlyBudgetService.generateEmergencyFundStatus(
                         monthlyBudgetInput);
-
-        model.addAttribute(
-                "monthlyBudgetInput",
-                monthlyBudgetInput);
 
         model.addAttribute(
                 "totalExpenses",

@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class CollegeOption {
@@ -12,16 +14,49 @@ public class CollegeOption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(
+            message = "College name is required."
+    )
     private String collegeName;
 
+    @PositiveOrZero(
+            message = "Tuition cannot be negative."
+    )
     private double tuition;
+
+    @PositiveOrZero(
+            message = "Housing cost cannot be negative."
+    )
     private double housing;
+
+    @PositiveOrZero(
+            message = "Food cost cannot be negative."
+    )
     private double food;
+
+    @PositiveOrZero(
+            message = "Books cost cannot be negative."
+    )
     private double books;
+
+    @PositiveOrZero(
+            message = "Transportation cost cannot be negative."
+    )
     private double transportation;
 
+    @PositiveOrZero(
+            message = "Scholarship amount cannot be negative."
+    )
     private double scholarship;
+
+    @PositiveOrZero(
+            message = "Family contribution cannot be negative."
+    )
     private double familyContribution;
+
+    @PositiveOrZero(
+            message = "Student income cannot be negative."
+    )
     private double studentIncome;
 
     private double annualCost;
@@ -29,6 +64,7 @@ public class CollegeOption {
     private double fourYearCost;
     private double fourYearFundingGap;
     private double scholarshipCoverage;
+
 
     public Long getId() {
         return id;
@@ -38,6 +74,7 @@ public class CollegeOption {
         this.id = id;
     }
 
+
     public String getCollegeName() {
         return collegeName;
     }
@@ -45,6 +82,7 @@ public class CollegeOption {
     public void setCollegeName(String collegeName) {
         this.collegeName = collegeName;
     }
+
 
     public double getTuition() {
         return tuition;
@@ -54,6 +92,7 @@ public class CollegeOption {
         this.tuition = tuition;
     }
 
+
     public double getHousing() {
         return housing;
     }
@@ -61,6 +100,7 @@ public class CollegeOption {
     public void setHousing(double housing) {
         this.housing = housing;
     }
+
 
     public double getFood() {
         return food;
@@ -70,6 +110,7 @@ public class CollegeOption {
         this.food = food;
     }
 
+
     public double getBooks() {
         return books;
     }
@@ -77,6 +118,7 @@ public class CollegeOption {
     public void setBooks(double books) {
         this.books = books;
     }
+
 
     public double getTransportation() {
         return transportation;
@@ -86,6 +128,7 @@ public class CollegeOption {
         this.transportation = transportation;
     }
 
+
     public double getScholarship() {
         return scholarship;
     }
@@ -93,6 +136,7 @@ public class CollegeOption {
     public void setScholarship(double scholarship) {
         this.scholarship = scholarship;
     }
+
 
     public double getFamilyContribution() {
         return familyContribution;
@@ -102,6 +146,7 @@ public class CollegeOption {
         this.familyContribution = familyContribution;
     }
 
+
     public double getStudentIncome() {
         return studentIncome;
     }
@@ -109,6 +154,7 @@ public class CollegeOption {
     public void setStudentIncome(double studentIncome) {
         this.studentIncome = studentIncome;
     }
+
 
     public double getAnnualCost() {
         return annualCost;
@@ -118,6 +164,7 @@ public class CollegeOption {
         this.annualCost = annualCost;
     }
 
+
     public double getAnnualFundingGap() {
         return annualFundingGap;
     }
@@ -125,6 +172,7 @@ public class CollegeOption {
     public void setAnnualFundingGap(double annualFundingGap) {
         this.annualFundingGap = annualFundingGap;
     }
+
 
     public double getFourYearCost() {
         return fourYearCost;
@@ -134,6 +182,7 @@ public class CollegeOption {
         this.fourYearCost = fourYearCost;
     }
 
+
     public double getFourYearFundingGap() {
         return fourYearFundingGap;
     }
@@ -141,6 +190,7 @@ public class CollegeOption {
     public void setFourYearFundingGap(double fourYearFundingGap) {
         this.fourYearFundingGap = fourYearFundingGap;
     }
+
 
     public double getScholarshipCoverage() {
         return scholarshipCoverage;

@@ -1,19 +1,59 @@
 package com.campusfin.model;
 
+import jakarta.validation.constraints.PositiveOrZero;
+
 public class WhatIfScenario {
 
+    @PositiveOrZero(
+            message = "Tuition cannot be negative."
+    )
     private double tuition;
+
+    @PositiveOrZero(
+            message = "Housing cost cannot be negative."
+    )
     private double housing;
+
+    @PositiveOrZero(
+            message = "Food cost cannot be negative."
+    )
     private double food;
+
+    @PositiveOrZero(
+            message = "Books cost cannot be negative."
+    )
     private double books;
+
+    @PositiveOrZero(
+            message = "Transportation cost cannot be negative."
+    )
     private double transportation;
 
+    @PositiveOrZero(
+            message = "Scholarship amount cannot be negative."
+    )
     private double scholarship;
+
+    @PositiveOrZero(
+            message = "Family contribution cannot be negative."
+    )
     private double familyContribution;
+
+    @PositiveOrZero(
+            message = "Student income cannot be negative."
+    )
     private double studentIncome;
 
+    @PositiveOrZero(
+            message = "Monthly income cannot be negative."
+    )
     private double monthlyIncome;
+
+    @PositiveOrZero(
+            message = "Monthly expenses cannot be negative."
+    )
     private double monthlyExpenses;
+
 
     public double getTuition() {
         return tuition;
